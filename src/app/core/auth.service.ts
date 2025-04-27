@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(credentials: { email: string; password: string }) {
-    return this.http.post<any>('http://localhost:8081/api/auth/login', credentials);
+    return this.http.post<any>('http://localhost:8080/api/auth/login', credentials);
   }
 
   setToken(token: string) {

@@ -5,7 +5,7 @@ import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-common-view',
-  imports: [ RouterOutlet, NgIf],
+  imports: [  NgIf],
   templateUrl: './common-view.component.html',
   styleUrl: './common-view.component.css'
 })

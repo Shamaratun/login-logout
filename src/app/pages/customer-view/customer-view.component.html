@@ -1,2 +1,15 @@
-<div class="customer">Welcome Customer!</div>
-<p>customer-view works!</p>
+<div class="customer-view">
+    <h2>Customer Resources</h2>
+
+    <div *ngIf="resourceKeys.length > 0; else noData">
+        <ul>
+            <li *ngFor="let key of resourceKeys">
+                <strong>{{ key }}:</strong> {{ resources[key] }}
+            </li>
+        </ul>
+    </div>
+
+    <ng-template #noData>
+        <p>No resources available.</p>
+    </ng-template>
+</div>

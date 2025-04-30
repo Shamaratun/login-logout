@@ -1,13 +1,16 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CustomerService } from './customer.service';
+
 
 @Component({
   selector: 'app-customer-view',
-  imports: [CommonModule, NgFor, NgIf],
+  standalone: true,
+  imports: [CommonModule, NgFor, NgIf, ],
   templateUrl: './customer-view.component.html',
   styleUrl: './customer-view.component.css'
 })
-export class CustomerViewComponent {
+export class CustomerViewComponent implements OnInit{
   resources: { [key: string]: string } = {};
   resourceKeys: string[] = [];
 
@@ -18,7 +21,7 @@ export class CustomerViewComponent {
   }
 
   loadResources() {
-    this.CustomerService.getResources().subscribe({
+    this.customerService.getResources().subscribe({
       next: (data) => {
         this.resources = data;
         this.resourceKeys = Object.keys(data); // <== create keys here

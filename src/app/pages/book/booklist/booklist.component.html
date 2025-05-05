@@ -1,0 +1,43 @@
+
+<table class="table table-striped book-table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>Publisher</th>
+      <th>Publication Date</th>
+      <th>Price</th>
+      <th>Target Audience</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (book of Empire; track Empire) {
+    <tr>
+      <td>{{ Empire.indexOf(book) + 1 }}</td>
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.genre }}</td>
+      <td>{{ book.publisher }}</td>
+      <td>{{ book.publicationDate }}</td>
+      <td>{{ book.price }}</td>
+      <td>{{ book.targetAudience }}</td>
+      <td>
+        <!-- Update and delete buttons for each book -->
+        <button  class="btn btn-primary btn-outline-warning"
+        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" (click)="editBook(book)">
+          Update
+        </button><br>
+
+        <button class="btn btn-outline-danger btn-secondary"
+        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" (click)="deleteBook(book)">
+          Delete
+        </button>
+        <!-- <button class="btn btn-outline-dark" (click)="addToCart(writer)">Add to cart</button> -->
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

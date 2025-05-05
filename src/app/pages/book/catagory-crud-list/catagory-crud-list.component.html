@@ -1,0 +1,68 @@
+<app-customer-header></app-customer-header>
+<div class="container mt-5">
+  <!-- Section Title -->
+  <h2 class="text-center text-primary fw-bold">Books by Category</h2>
+
+  <!-- Form Section -->
+  <div class="card shadow-sm p-4 mt-4">
+    <form (submit)="onSubmit()" class="row g-3">
+      <div class="mb-3">
+        <label for="name" class="form-label"> Category:</label>
+        <input type="text" id="name" class="form-control" [(ngModel)]="catagory.name" name="name" required placeholder="Enter category">
+      </div><br>
+
+      <div class="mb-3">
+        <label for="description" class="form-label"> Books Name:</label>
+        <input type="text" id="description" class="form-control" [(ngModel)]="catagory.description" name="description" required placeholder="Enter book name">
+      </div><br>
+
+      <div class="mb-3">
+        <label for="price" class="form-label"> Price:</label>
+        <input type="number" id="price" class="form-control" [(ngModel)]="catagory.price" name="price" required placeholder="Enter price">
+      </div><br>
+
+      <div class="mb-3">
+        <label for="imageUrl" class="form-label"> Book Image URL:</label>
+        <input type="text" name="imageUrl" id="imageUrl" [(ngModel)]="catagory.imageUrl" class="form-control" required placeholder="Enter image URL">
+      </div><br>
+
+      <div class="col-12 text-center mt-3">
+        <button type="submit" class="btn btn-success px-4">{{ isUpdate ? 'Update' : 'Add' }} Category</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Table Section -->
+  <h3 class="text-center text-primary fw-bold mt-5">List of Books by Category</h3>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered text-center mt-3 shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Category</th>
+          <th>Book Name</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of catagories; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ category.name }}</td>
+          <td>{{ category.description }}</td>
+          <td>${{ category.price }}</td>
+          <td>
+            <img *ngIf="category.imageUrl" [src]="category.imageUrl" alt="Category Image" class="img-thumbnail" width="60">
+          </td>
+          <td>
+            <button class="btn btn-sm btn-outline-info sm-1" (click)="editCatagory(category, i)"> Edit</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteCatagory(category)"> Delete</button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

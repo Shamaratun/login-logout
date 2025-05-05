@@ -1,0 +1,12 @@
+.book-categories a {
+    display: inline-block;
+    margin: 5px;
+    padding: 8px 12px;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.book-categories a:hover {
+    background-color: #5a6268;
+}

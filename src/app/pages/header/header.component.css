@@ -1,0 +1,27 @@
+/* Ensure Content is Below Navbar */
+body {
+    padding-top: 80px; /* Adjust based on navbar height */
+  }
+  
+  /* Navbar Links Styling */
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #ffcc00; /* Highlight effect */
+  }
+  
+  /* Logo and Navbar Spacing */
+  .navbar-brand img {
+    border: 2px solid white;
+    padding: 3px;
+  }
+  
+  /* Adjusting Icon Size */
+  .navbar-nav .fw-bold {
+    font-size: 1.1rem;
+  }
+  

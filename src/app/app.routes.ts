@@ -6,51 +6,44 @@ import { CustomerViewComponent } from './pages/customer-view/customer-view.compo
 import { ViewerViewComponent } from './pages/viewer-view/viewer-view.component';
 import { AdminViewComponent } from './pages/admin-view/admin-view.component';
 import { CommonViewComponent } from './pages/common-view/common-view.component';
+import { HeaderComponent } from './pages/header/header.component';
+
+import { BookListComponent } from './pages/book/booklist/booklist.component';
+import { BookCRUDComponent } from './pages/book/book-crud/book-crud.component';
+import { DashboardComponent } from './pages/header/dashboard/dashboard.component';
+import { BookItemsComponent } from './pages/book/book-items/book-items.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { RegistrationComponent } from './pages/registration/registration.component';
+import { AdminComponent } from './pages/adminP/adminHeader/admin.component';
 
 export const routes: Routes = [ {
-    path: 'login-view',
-    component: LoginViewComponent,
-},
+    path: '',component: LoginViewComponent },
+    { path: 'registration', component: RegistrationComponent },
 {
-    path: 'dashboard',
-    component: MainLayoutComponent,
+    path: '',
+    component: HeaderComponent,
     canActivate: [authGuard],
     children: [
-        {
-            path: 'customer-view',
-            component: CustomerViewComponent,
-            data: { roles: ['customer', 'admin'] },
-            canActivate: [authGuard]
-        },
-        {
-            path: 'viewer-view',
-            component: ViewerViewComponent,
-            data: { roles: ['viewer', 'admin'] },
-            canActivate: [authGuard]
-        },
-        {
-            path: 'admin-view',
-            component: AdminViewComponent,
-            data: { roles: ['admin'] },
-            canActivate: [authGuard]
-        },
-        
-        {
-            path: 'common',
-            component: CommonViewComponent,
-            canActivate: [authGuard],
-            data: { roles: ['customer', 'viewer', 'admin'] }
-        },
-        {
-            path: '',
-            redirectTo: 'common',
-            pathMatch: 'full'
-        }
-    ]
-},
-{
-    path: '**',
-    redirectTo: 'login-view',
-}
+        { path: 'booklist', component: BookListComponent },  // Path for the BookList component
+        { path: 'bookCRUD', component: BookCRUDComponent },  // Path for the BookCRUD component
+        // { path: 'customer-reg', component: CustomerRegComponent },
+        { path: 'customer-list', component: CustomerViewComponent },
+        // { path: 'catagory-crud-list', component: CatagoryCrudListComponent },
+        { path: 'dashboard', component: DashboardComponent },
+        // { path: 'islami-booklist', component: IslamiBooklistComponent },
+        // { path: 'customer-header', component: CustomerHeaderComponent },
+        // { path: 'writers-crud-list', component: WritersCrudListComponent },
+        { path: 'book-items', component: BookItemsComponent },
+         { path: 'adminHeader', component: AdminComponent },
+        // { path: 'card-view', component: CardViewComponent },
+       
+        { path: 'admin', component: AdminViewComponent },
+        // { path: 's-list', component: SListComponent },
+        { path: 'cart', component: CartComponent },
+        { path: 'dashboard', component: DashboardComponent },
+        // {path: 'all-books', component: AvailableBooksComponent},
 
+        { path: '**', redirectTo: 'home' },
+    ],
+},
 ];

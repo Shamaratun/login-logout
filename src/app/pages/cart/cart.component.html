@@ -1,0 +1,48 @@
+<div class="cart-container">
+  <h2>Your Cart</h2>
+
+  <!-- Book Name -->
+  <div class="mb-3">
+    <label for="customerName" class="form-label"> Customer Name:</label>
+    <input type="text" id="customerName" [(ngModel)]="order.customerName" name="customerName" required class="form-control"
+      placeholder="Enter Your name" />
+  </div>
+  <!-- Table to display cart items -->
+  <table *ngIf="carts.length > 0" class="cart-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Item</th>
+        <th>Writer</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of carts; let i = index" class="cart-row">
+        <td class="p-4">{{i+1}} </td>
+        <td>{{ item.bookName }}</td>
+        <td>{{item.writerName}}</td>
+        <td>{{item.price}} BDT</td>
+        <td>
+          <button class="remove-btn" (click)="removeFromCart(i)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Display total price -->
+  <div *ngIf="totalPrice !== null" class="total-price">
+    <h3>Total Price: {{ totalPrice }} BDT</h3>
+  </div>
+
+  <!-- If cart is empty -->
+  <div *ngIf="carts.length === 0" class="empty-cart">
+    <p>Your cart is empty. Start shopping!</p>
+  </div>
+
+  <!-- Purchase Button -->
+  <div *ngIf="carts.length > 0">
+    <button class="checkout-btn" (click)="purchase()">Proceed to Checkout</button>
+  </div>
+</div>

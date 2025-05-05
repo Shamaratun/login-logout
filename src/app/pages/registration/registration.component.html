@@ -1,0 +1,122 @@
+<div><h3 class="text-center mb-4"> Registration Form</h3>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow p-4 rounded-4">
+        <h3 class="text-center mb-4"> Register</h3>
+        <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
+          
+          <!-- Full Name -->
+          <div class="mb-3">
+            <label for="fullName" class="form-label"> Full Name</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Enter full name"
+                   [(ngModel)]="user.fullName" name="fullName" required>
+            <div *ngIf="registrationForm.controls['fullName']?.invalid && (registrationForm.controls['fullName']?.dirty || registrationForm.controls['fullName']?.touched)"
+                 class="text-danger">
+              Full name is required.
+            </div>
+          </div>
+  
+          <!-- Username -->
+          <div class="mb-3">
+            <label for="username" class="form-label"> Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter username"
+                   [(ngModel)]="user.username" name="username" required>
+            <div *ngIf="registrationForm.controls['username']?.invalid && (registrationForm.controls['username']?.dirty || registrationForm.controls['username']?.touched)"
+                 class="text-danger">
+              Username is required.
+            </div>
+          </div>
+  
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label"> Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email"
+                   [(ngModel)]="user.email" name="email" required email>
+            <div *ngIf="registrationForm.controls['email']?.invalid && (registrationForm.controls['email']?.dirty || registrationForm.controls['email']?.touched)">
+              <div *ngIf="registrationForm.controls['email']?.errors?.['required']" class="text-danger">
+                Email is required.
+              </div>
+              <div *ngIf="registrationForm.controls['email']?.errors?.['email']" class="text-danger">
+                Enter a valid email address.
+              </div>
+            </div>
+          </div>
+  
+          <!-- Phone Number -->
+          <div class="mb-3">
+            <label for="phoneNumber" class="form-label"> Phone Number</label>
+            <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number"
+                   [(ngModel)]="user.phoneNumber" name="phoneNumber" required>
+            <div *ngIf="registrationForm.controls['phoneNumber']?.invalid && (registrationForm.controls['phoneNumber']?.dirty || registrationForm.controls['phoneNumber']?.touched)"
+                 class="text-danger">
+              Phone number is required.
+            </div>
+          </div>
+  
+          <!-- NID -->
+          <div class="mb-3">
+            <label for="nid" class="form-label"> NID</label>
+            <input type="number" class="form-control" id="nid" placeholder="Enter NID"
+                   [(ngModel)]="user.nid" name="nid" required>
+            <div *ngIf="registrationForm.controls['nid']?.invalid && (registrationForm.controls['nid']?.dirty || registrationForm.controls['nid']?.touched)"
+                 class="text-danger">
+              NID is required.
+            </div>
+          </div>
+  
+          <!-- Address -->
+          <div class="mb-3">
+            <label for="address" class="form-label"> Address</label>
+            <input type="text" class="form-control" id="address" placeholder="Enter address"
+                   [(ngModel)]="user.address" name="address" required>
+            <div *ngIf="registrationForm.controls['address']?.invalid && (registrationForm.controls['address']?.dirty || registrationForm.controls['address']?.touched)"
+                 class="text-danger">
+              Address is required.
+            </div>
+          </div>
+  
+          <!-- Role (Hidden or Select) -->
+          <input type="hidden" [(ngModel)]="user.role" name="role" value="CUSTOMER">
+          <!-- Optional: Use this instead if you want a dropdown
+          <div class="mb-3">
+            <label for="role" class="form-label">🧩 Role</label>
+            <select class="form-control" id="role" [(ngModel)]="user.role" name="role">
+              <option value="CUSTOMER">Customer</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </div>
+          -->
+  
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label"> Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password"
+                   [(ngModel)]="user.password" name="password" required>
+            <div *ngIf="registrationForm.controls['password']?.invalid && (registrationForm.controls['password']?.dirty || registrationForm.controls['password']?.touched)"
+                 class="text-danger">
+              Password is required.
+            </div>
+          </div>
+  
+          <!-- Confirm Password -->
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label"> Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password"
+                   [(ngModel)]="confirmPassword" name="confirmPassword" required>
+            <div *ngIf="confirmPassword !== user.password && registrationForm.controls['confirmPassword']?.touched"
+                 class="text-danger">
+              Passwords do not match.
+            </div>
+          </div>
+  
+          <button type="submit" class="btn btn-primary w-100"
+                  [disabled]="registrationForm.invalid || confirmPassword !== user.password">Register</button>
+  
+          <div class="mt-3 text-center">
+            Already have an account? <a href="/">Login here</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

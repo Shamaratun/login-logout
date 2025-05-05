@@ -1,0 +1,92 @@
+
+<h1 class="form-title">Add a Book</h1>
+<form (ngSubmit)="onSubmit()" class="book-form">
+  <div class="form-group">
+    <label for="title" class="form-label">Title:</label>
+    <input
+      type="text"
+      placeholder="Enter the name of the book"
+      name="title"
+      id="title"
+      [(ngModel)]="b.title"
+      class="form-input"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="author" class="form-label">Author:</label>
+    <input
+      type="text"
+      placeholder="Enter the author name"
+      name="author"
+      id="author"
+      [(ngModel)]="b.author"
+      class="form-input"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="genre" class="form-label">Genre:</label>
+    <input
+      type="text"
+      placeholder="Enter genre"
+      name="genre"
+      id="genre"
+      [(ngModel)]="b.genre"
+      class="form-input"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="publisher" class="form-label">Publisher:</label>
+    <input
+      type="text"
+      name="publisher"
+      id="publisher"
+      [(ngModel)]="b.publisher"
+      class="form-input"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="publishedDate" class="form-label">Published Date:</label>
+    <input
+      type="date"
+      placeholder="Enter published date"
+      name="publishedDate"
+      id="publishedDate"
+      [(ngModel)]="b.publicationDate"
+      class="form-input"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="price" class="form-label">Price:</label>
+    <input
+      type="number"
+      placeholder="Enter Price"
+      name="price"
+      id="price"
+      [(ngModel)]="b.price"
+      class="form-input"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="targetAudience" class="form-label">Target Audience:</label>
+    <input
+      type="text"
+      placeholder="Enter target audience"
+      name="targetAudience"
+      id="targetAudience"
+      [(ngModel)]="b.targetAudience"
+      class="form-input"
+    />
+  </div>
+
+  <div class="form-action">
+    <button type="submit" class="submit-btn">
+      {{ isUpdate ? 'Update' : 'Submit' }}
+    </button>
+  </div>
+</form>

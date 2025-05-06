@@ -1,0 +1,31 @@
+
+.nav {
+  background-color: #343a40; /* Dark background */
+ 
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.nav-link {
+  color: #ffffff; /* White text */
+  padding-inline: 30px;
+  font-size: 16px;
+}
+.nav-link:hover {
+  background-color: #aaaaaa; /* Blue on hover */
+
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.3);
+  opacity: 0.8;
+}
+.nav-link.active {
+  background-color: #28a745; /* Green for active link */
+  color: #fff;
+  font-weight: bold;
+}
+  .nav-link {
+    margin-bottom:2px;
+  }
+
+
+  
+  

@@ -1,12 +1,13 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from './customer.service';
+import { CustomerHeaderComponent } from "../common/customer-header/customer-header.component";
 
 
 @Component({
   selector: 'app-customer-view',
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, ],
+  imports: [CommonModule, NgFor, NgIf, CustomerHeaderComponent],
   templateUrl: './customer-view.component.html',
   styleUrl: './customer-view.component.css'
 })

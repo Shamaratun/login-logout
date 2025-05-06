@@ -1,0 +1,22 @@
+.a{
+    /* background-attachment: fixed;
+    background-position: bottom; */
+    height: 100%;          
+    width: 100%;        
+    position: relative;
+background-color: black;
+ color: azure;
+float: inline-end;
+}
+.footer{
+    background-color: black;
+   
+    padding: 10px;
+    margin-top: 10px;
+}
+.highlight-container { display: flex; align-items: center; }
+.swiper { overflow: hidden; display: flex; }
+.swiper-wrapper { display: flex; }
+.swiper-slide { margin: 0 5px; text-align: center; }
+.swiper-slide img { width: 100px; height: 100px; }
+.slider-button { background: none; border: none; font-size: 20px; cursor: pointer; }

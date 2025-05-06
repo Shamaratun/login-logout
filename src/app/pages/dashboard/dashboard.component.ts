@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../core/auth.service';
-import {  NgIf } from '@angular/common';
+import { AuthService } from '../../core/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NgIf],
+  imports: [CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  role = '';
+ role = '';
 
   constructor(private auth: AuthService) {
     this.role = auth.getUserRole();
@@ -19,3 +19,4 @@ export class DashboardComponent {
     this.auth.logout();
   }
 }
+

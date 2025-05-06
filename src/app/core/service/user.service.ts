@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { User } from '../../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,11 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class UserService {
 
   private baseUrl = 'http://localhost:8080';
+  private apiUrl = 'http://localhost:8080/api/users';  // Adjust the URL if needed
 
   constructor(private http: HttpClient) {}
+
+
 
   /**
    * Registers a new user.
@@ -42,6 +46,11 @@ export class UserService {
     }
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage)); // Use throwError
+  }
+
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl);  // Make sure this endpoint returns a list of users
   }
 }
 

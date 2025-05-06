@@ -1,6 +1,6 @@
 <div class="customer-view">
     <h2>Customer Resources</h2>
-
+<app-customer-header></app-customer-header>
     <div *ngIf="resourceKeys.length > 0; else noData">
         <ul>
             <li *ngFor="let key of resourceKeys">

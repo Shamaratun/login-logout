@@ -1,3 +1,4 @@
+<h1>Dashboard</h1>
 <div class="row">
     <div class="sidebar sidebar-hidden" id="sidebar">
         <div class="d-flex justify-content-between align-items-start ">
@@ -43,6 +44,11 @@
                     </ul>
                 </div>
             </div>
+           
+<!-- <p *ngIf="role === 'admin'">Admin Panel</p>
+<p *ngIf="role === 'customer'">Customer Panel</p>
+<p *ngIf="role === 'viewer'">Viewer Panel</p> -->
+<button (click)="logout()">Logout</button>
             <!-- <div class="container">
                 <div class="row">
                     <div class="col-md-3 ">

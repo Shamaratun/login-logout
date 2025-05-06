@@ -2,13 +2,13 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
-import { CartService } from '../../services/cart.service';
-import { Catagory } from '../../app.component';
-import { CustomerHeaderComponent } from "../../Customer/customer-header/customer-header.component";
+import { CartService } from '../../cart/cart.service';
+import { Catagory } from '../../../app.component';
+
 
 @Component({
   selector: 'app-catagory-crud-list',
-  imports: [FormsModule, CommonModule, NgFor, CustomerHeaderComponent],
+  imports: [FormsModule, CommonModule, NgFor, ],
   templateUrl: './catagory-crud-list.component.html',
   styleUrls: ['./catagory-crud-list.component.css']
 })

@@ -1,0 +1,15 @@
+.book-image {
+    height: 250px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  .card {
+    width: 350px; /* Adjust width as needed */
+  height: 400px;
+    transition: transform 0.3s ease-in-out;
+  }
+  .card:hover {
+    transform: scale(1.05);
+  }
+  

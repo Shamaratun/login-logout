@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Book } from '../../../models/book.model';
+import { BookService } from '../../../core/service/book.service';
 
 @Component({
   selector: 'app-book-items',
@@ -11,101 +13,73 @@ import { Router } from '@angular/router';
   styleUrls: ['./book-items.component.css']
 })
 export class BookItemsComponent implements OnInit {
-  writers: Writer[] = [];
-  writer: Writer = new Writer(0, '', '', 0, '');
-  currentIndex: number | null = null;
+  books: Book[] = [];
+  book: Book = new Book(); // form model
   isUpdate: boolean = false;
-  imageUrl: string | ArrayBuffer | null = null;
+  currentEditId: number | null = null;
 
-  constructor(private router: Router) {
-    const nav = this.router.getCurrentNavigation();
-    if (nav?.extras?.state?.['writer']) {
-      this.writer = nav.extras.state['writer'];
-      this.isUpdate = true;
-    }
-  }
+  constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
-    const savedWriters = localStorage.getItem('writers');
-    if (savedWriters) {
-      this.writers = JSON.parse(savedWriters);
-    }
+    this.loadBooks();
+  }
+
+  loadBooks(): void {
+    this.bookService.getBooks().subscribe({
+      next: (data) => (this.books = data),
+      error: (err) => console.error('Error loading books:', err),
+    });
   }
 
   onSubmit(): void {
-    let writers: Writer[] = JSON.parse(localStorage.getItem('writers') || '[]');
-    if (this.isUpdate) {
-      writers = writers.map(w => (w.id === this.writer.id ? this.writer : w));
+    if (this.isUpdate && this.currentEditId !== null) {
+      this.bookService.updateBook(this.currentEditId, this.book).subscribe({
+        next: () => {
+          this.loadBooks();
+          this.resetForm();
+          alert('Book updated successfully!');
+        },
+        error: (err) => console.error('Update failed:', err),
+      });
     } else {
-      this.writer.id = writers.length ? Math.max(...writers.map(w => w.id)) + 1 : 1;
-      writers.push(this.writer);
-    }
-    localStorage.setItem('writers', JSON.stringify(writers));
-    this.writers = writers;
-    this.resetForm();
-  }
-
-  deleteWriter(i: number): void {
-    if (confirm('Are you sure you want to delete this writer?')) {
-      //this.writers = this.writers.filter(writer => writer.id !== writerToDelete.id);
-      this.writers.splice(i, 1);
-
-      localStorage.setItem('writers', JSON.stringify(this.writers));
-      alert('Writer deleted successfully');
+      this.bookService.createBook(this.book).subscribe({
+        next: () => {
+          this.loadBooks();
+          this.resetForm();
+          alert('Book added successfully!');
+        },
+        error: (err) => console.error('Create failed:', err),
+      });
     }
   }
 
-  editWriter(writer: Writer, i: number): void {
-    this.writer = {...writer};
-    this.currentIndex = i;
+
+  
+  editBook(book: Book): void {
+    this.book = { ...book };
+    this.currentEditId = book.id!;
     this.isUpdate = true;
-    
-    //this.router.navigate(['/book-items'], { state: { writer } });
+  }
+
+  deleteBook(book: Book): void {
+    if (book.id != null && confirm('Are you sure you want to delete this book?')) {
+      this.bookService.deleteBook(book.id).subscribe({
+        next: () => {
+          this.loadBooks();
+          alert('Book deleted successfully!');
+        },
+        error: (err) => console.error('Delete failed:', err),
+      });
+    }
   }
 
   resetForm(): void {
-    this.writer = new Writer(0, '', '', 0, '');
+    this.book = new Book();
     this.isUpdate = false;
+    this.currentEditId = null;
   }
 
-  onImageChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-      if (allowedTypes.includes(file.type)) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.imageUrl = reader.result;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        alert('Only image files are allowed!');
-      }
-    }
+  trackById(index: number, book: Book): number {
+    return book.id!;
   }
-
-  addToCart(writer: Writer): void {
-    let cart: Writer[] = JSON.parse(localStorage.getItem('cart') || '[]');
-    if (cart.some(item => item.id === writer.id)) {
-      alert('This book is already in your cart.');
-      return;
-    }
-    cart.push(writer);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert(`${writer.bookName} has been added to the cart.`);
-  }
-
-  detailsOfBook(writer: Writer): void {
-    this.router.navigate(['/book-details'], { state: { writer } });
-  }
-}
-
-class Writer {
-  constructor(
-    public id: number,
-    public writerName: string,
-    public bookName: string,
-    public price: number,
-    public imageUrl: string | null
-  ) {}
 }

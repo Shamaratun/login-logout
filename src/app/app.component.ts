@@ -9,32 +9,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title1 = 'App-Auth';
-  title = 'bookstore';
+  
 }
-  export class Book {
-    id:number;
-    title:string;
-    author:string;
-    genre:string;
-    publisher:string;
-    publicationDate:Date;
-    price:number; 
-    targetAudience:string;
-    
   
-  
-    constructor(id:number,title:string,author:string,genre:string,publisher:string,publicationDate:Date,price:number,targetAudience:string) {
-      this.id = id;
-      this.title = title;
-      this.author = author;
-      this.genre = genre;
-      this.publisher = publisher;
-      this.publicationDate = publicationDate;
-      this.price = price;
-      this.targetAudience = targetAudience;
-  
-    }
-  }
 
   export class Customer {
     customername: string;

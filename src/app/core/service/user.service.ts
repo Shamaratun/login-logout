@@ -1,78 +1,86 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
-import { User } from '../../models/user';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { RegisterRequest, UserResponse } from '../../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private baseUrl = 'http://localhost:8080';
-  private apiUrl = 'http://localhost:8080/api/users';  // Adjust the URL if needed
+  private apiUrl = 'http://localhost:8080/api/users';
 
   constructor(private http: HttpClient) {}
 
-
-
   /**
    * Registers a new user.
-   * @param registerRequest The registration data.
-   * @returns An Observable containing the UserResponse on success, or an error on failure.
    */
   registerUser(registerRequest: RegisterRequest): Observable<UserResponse> {
-    const url = `${this.baseUrl}/api/auth/register`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' }); // Set content type
+    const url = 'http://localhost:8080/api/auth/register';
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post<UserResponse>(url, registerRequest, { headers })
-      .pipe(
-        catchError(this.handleError) // Handle errors
-      );
+      .pipe(catchError(this.handleError));
   }
 
   /**
-   * Error handler for HTTP requests.
-   * @param error The error object.
-   * @returns An Observable that throws the error.
+   * Retrieves all users.
    */
-  private handleError(error: any): Observable<any> {
+  getUsers(): Observable<UserResponse[]> {
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      map((data) =>
+        data.map((item) => {
+          const user: UserResponse = {
+            id: item.id,
+            email: item.email,
+            role: item.role,
+            address: item.address,
+            nid: item.nid,
+            phoneNumber: item.phoneNumber,
+            fullName: item.fullName,
+            username: item.username,createdAt: item.createdAt,
+            updatedAt: item.updatedAt
+          };
+          return user;
+        })
+      ),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Updates a user by ID.
+   */
+  updateUser(id: number, user: Partial<RegisterRequest>): Observable<UserResponse> {
+    const url = `${this.apiUrl}/${id}`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.put<UserResponse>(url, user, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  /**
+   * Deletes a user by ID.
+   */
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  /**
+   * Common error handler.
+   */
+  private handleError(error: any): Observable<never> {
     let errorMessage = 'An error occurred';
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.error?.message || 'Server error'}`;
     }
     console.error(errorMessage);
-    return throwError(() => new Error(errorMessage)); // Use throwError
-  }
-
-
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);  // Make sure this endpoint returns a list of users
+    return throwError(() => new Error(errorMessage));
   }
 }
+export { RegisterRequest };
 
-export interface RegisterRequest {
-  email: string;
-  password: string;
-  role: string;
-  address?:String; //  Use string, or create an Enum/Type for Role if needed
-  nid?:number;
-  phoneNumber?: string; // or Integer phoneNumber if you kept that 
-  fullName?: string;
-  username?: string;
-  
-}
-
-interface UserResponse {
-  id: number;
-  email: string;
-  role: string;
-  address?:String; //  Use string, or create an Enum/Type for Role if needed
-  nid?:number;
-  phoneNumber?: string; // or Integer phoneNumber if you kept that 
-  fullName?: string;
-  username?: string;
-}

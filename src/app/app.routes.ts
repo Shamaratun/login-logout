@@ -25,6 +25,9 @@ import { CatagoryCrudListComponent } from './pages/book/catagory-crud-list/catag
 import { FooterComponent } from './pages/common/footer/footer.component';
 import { SidebarComponent } from './pages/common/sidebar/sidebar.component';
 import { AvailableBooksComponent } from './pages/book/available-books/available-books.component';
+import { AboutUsComponent } from './about/about-us/about-us.component';
+import { ContactUsComponent } from './about/contact-us/contact-us.component';
+import { CatagoryComponent } from './pages/book/catagory/catagory.component';
 
 export const routes: Routes = [ {
     path: '',component: LoginViewComponent },
@@ -48,7 +51,8 @@ export const routes: Routes = [ {
          { path: 'writers-crud-list', component: WritersCrudListComponent },
         { path: 'book-items', component: BookItemsComponent },
          { path: 'adminHeader', component: AdminComponent },
-      
+      {path: 'about-us', component: AboutUsComponent},
+      {path: 'contact-us', component: ContactUsComponent},
        {path: 'main-layout', component: MainLayoutComponent},
        {path: 'footer', component: FooterComponent},
        {path: 'sidebar', component: SidebarComponent},
@@ -60,6 +64,7 @@ export const routes: Routes = [ {
 {path: 'common-view', component: CommonViewComponent},
         { path: 'viewer-view', component: ViewerViewComponent },
         { path: 'admin-view', component: AdminViewComponent },
+        {path:'catagory', component: CatagoryComponent},
         // { path: '', redirectTo: 'home' },
         { path: '**', redirectTo: 'home' },
    

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
-import { Book } from '../../../app.component';
+import { Book } from '../../../models/book.model';
+
 // 
 @Component({
   selector: 'app-booklist',
@@ -29,7 +30,7 @@ Empire: Book[] = [];  // Array for storing the list of books
 
   editBook(book: Book): void {
     // Send the selected book as state to navigate to the form for updating
-    this.router.navigate(['/bookCRUD'], { state: { books: book } });
+    this.router.navigate(['/'], { state: { books: book } });
   }
 
   deleteBook(bookToDelete: Book): void {

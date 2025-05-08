@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
 import { Book } from '../../../models/book.model';
+import { NgFor } from '@angular/common';
 
 // 
 @Component({
   selector: 'app-booklist',
-  imports: [FormsModule],
+  imports: [FormsModule,NgFor],
   templateUrl: './booklist.component.html',
   styleUrls: ['./booklist.component.css'],
 })
@@ -15,6 +16,9 @@ export class BookListComponent implements OnInit {
   
 Empire: Book[] = [];  // Array for storing the list of books
   book: any;
+  trackByBook(index: number, book: Book): number {
+    return book.id!;
+  }
 
   trackEmpire(index: number, book: any): number {
     return book.id;

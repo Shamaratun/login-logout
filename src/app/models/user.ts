@@ -5,6 +5,7 @@ export class User {
     constructor(
       public id: number = 0,
       public email: string = '',
+      public password: string = '',
       public role: string = '',
       public address: string = '',
       public nid: number = 0,
@@ -19,7 +20,7 @@ export class User {
 export class RegisterRequest {
     constructor(
       public email: string = '',
-     public password: string = '',
+      public password: string = '',
       public role: string = 'CUSTOMER',
       public address: string = '',
       public nid: number = 0,
@@ -32,6 +33,7 @@ export class UserResponse {
     constructor(
       public id: number = 0,
       public email: string = '',
+      public password: string = '',
       public role: string = '',
       public address: string = '',
       public nid: number = 0,

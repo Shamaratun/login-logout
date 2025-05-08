@@ -34,6 +34,7 @@ export class UserService {
           const user: UserResponse = {
             id: item.id,
             email: item.email,
+            password: item.password,
             role: item.role,
             address: item.address,
             nid: item.nid,

@@ -1,0 +1,13 @@
+import { Book } from "./book.model";
+import { Cart } from "./cart";
+
+
+
+export class CartItem {
+  cartItemID!: number;
+  quantity!: number;
+  cart!: Cart;      // or cartID: number; if only the ID is returned
+  book!: Book;      // or bookID: number; if only the ID is returned
+}
+// cartID!: number;
+// bookID!: number;

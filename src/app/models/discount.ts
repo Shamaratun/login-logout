@@ -1,6 +1,6 @@
 // models/discount.model.ts
 
-import { Order } from './order.model';
+import { Order } from './order';
 
 export class Discount {
   discountID!: number;

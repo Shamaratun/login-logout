@@ -1,6 +1,9 @@
 // models/order.model.ts
 
 import { Discount } from "./discount";
+import { OrderItem } from "./orderItem";
+import { Payment } from "./payment";
+import { Shipping } from "./shipping";
 import { User } from "./user";
 
 
@@ -12,7 +15,7 @@ export class Order {
   totalAmount!: number;          // BigDecimal → number
   user!: User;                   // or userID: number
   discount!: Discount;           // or discountID: number
-  // payment!: Payment;             // or paymentID: number
-  // shipping!: Shipping;           // or shippingID: number
-  // orderItems!: OrderItem[];      // list of items in the order
+  payment!: Payment;             // or paymentID: number
+  shipping!: Shipping;           // or shippingID: number
+  orderItems!: OrderItem[];      // list of items in the order
 }

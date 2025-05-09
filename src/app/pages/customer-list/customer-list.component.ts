@@ -19,6 +19,10 @@ export class CustomerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
+
+    this.userService.getUsers().subscribe(users => {
+      this.users = users;
+    });
   }
 
   loadUsers(): void {

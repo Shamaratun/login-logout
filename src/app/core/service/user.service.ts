@@ -30,18 +30,18 @@ export class UserService {
   getUsers(): Observable<UserResponse[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(
       map((data) =>
-        data.map((item) => {
+        data.map((u) => {
           const user: UserResponse = {
-            id: item.id,
-            email: item.email,
-            password: item.password,
-            role: item.role,
-            address: item.address,
-            nid: item.nid,
-            phoneNumber: item.phoneNumber,
-            fullName: item.fullName,
-            username: item.username,createdAt: item.createdAt,
-            updatedAt: item.updatedAt
+            id: u.id,
+            email: u.email,
+            password: u.password,
+            role: u.role,
+            address: u.address,
+            nid: u.nid,
+            phoneNumber: u.phoneNumber,
+            fullName: u.fullName,
+            username: u.username,createdAt: u.createdAt,
+            updatedAt: u.updatedAt
           };
           return user;
         })
@@ -61,17 +61,13 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  /**
-   * Deletes a user by ID.
-   */
+
   deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
   }
 
-  /**
-   * Common error handler.
-   */
+ 
   private handleError(error: any): Observable<never> {
     let errorMessage = 'An error occurred';
     if (error.error instanceof ErrorEvent) {

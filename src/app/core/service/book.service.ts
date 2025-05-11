@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Book } from '../../models/book.model';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -19,8 +18,9 @@ export class BookService {
         data.map((item) => {
           const book = new Book();
 
-          book.id = item.id;
-          
+          // ✅ FIXED: Use bookId instead of id
+          book.bookId = item.bookId;
+
           book.title = item.title;
           book.isbn = item.isbn;
           book.price = item.price;
@@ -28,6 +28,7 @@ export class BookService {
           book.image = item.image;
           book.genre = item.genre;
           book.rating = item.rating;
+          book.author = item.author;
           book.createdAt = item.createdAt;
           book.updatedAt = item.updatedAt;
 
@@ -44,14 +45,14 @@ export class BookService {
     }).pipe(catchError(this.handleError));
   }
 
-  updateBook(id: number, book: Book): Observable<Book> {
-    return this.http.put<Book>(`${this.apiUrl}/${id}`, book, {
+  updateBook(bookId: number, book: Book): Observable<Book> {
+    return this.http.put<Book>(`${this.apiUrl}/${bookId}`, book, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     }).pipe(catchError(this.handleError));
   }
 
-  deleteBook(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+  deleteBook(bookId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${bookId}`).pipe(
       catchError(this.handleError)
     );
   }

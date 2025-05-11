@@ -1,17 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Warehouse } from '../../../models/warehouse';
+import { WarehouseService } from '../../../core/service/warehouse.service';
+import { NgFor } from '@angular/common';
+
 
 @Component({
   selector: 'app-reg-form',
-  imports: [],
+  imports: [NgFor],
   templateUrl: './reg-form.component.html',
-  styleUrl: './reg-form.component.css'
 })
-export class RegFormComponent {
-admin: any;
-Register(admin: any): void {
-  if (confirm('Are you sure you want toregister as admin?')) {
+export class RegFormComponent implements OnInit {
+  warehouses: Warehouse[] = [];
 
-}
-alert(admin + " registered as admin");
-}
+  constructor(private warehouseService: WarehouseService) {}
+
+  ngOnInit(): void {
+    this.loadWarehouses();
+  }
+
+  loadWarehouses(): void {
+    this.warehouseService.getAllWarehouses().subscribe(data => {
+      this.warehouses = data;
+    });
+  }
 }

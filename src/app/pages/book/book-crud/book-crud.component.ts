@@ -3,17 +3,20 @@ import { Router } from '@angular/router';
 import { BookService } from '../../../core/service/book.service';
 import { Book } from '../../../models/book.model';
 import { FormsModule, NgModel } from '@angular/forms';
+import { NgFor } from '@angular/common';
 
 
 @Component({
   selector: 'app-book-list',
-  imports: [FormsModule,],
+  imports: [FormsModule,NgFor],
   templateUrl: './book-crud.component.html',
   styleUrls: ['./book-crud.component.css'],
 })
 export class BookCRUDComponent implements OnInit {
+
   books: Book[] = [];
  isUpdate: boolean = false;
+
   constructor(private router: Router, private bookService: BookService) {}
   ngOnInit(): void {
   this.bookService.getBooks().subscribe((data) => {
@@ -32,7 +35,7 @@ saveBook() {
   }
 
   Delete(b: Book): void {
-    if (b.id != null) {
+    if (b.bookId != null) {
       if (confirm('Are you sure you want to delete this book?')) {
         this.bookService.getBooks().subscribe(() => {
           this.saveBook();
@@ -41,7 +44,9 @@ saveBook() {
     } else {
       alert('Invalid Book ID');
     }}
-
+trackByBook(index: number, book: Book): number {
+    return book.bookId!;
+  }
     
   }
 

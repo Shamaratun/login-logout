@@ -57,13 +57,13 @@ export class BookItemsComponent implements OnInit {
   
   editBook(book: Book): void {
     this.book = { ...book };
-    this.currentEditId = book.id!;
+    this.currentEditId = book.bookId!;
     this.isUpdate = true;
   }
 
   deleteBook(book: Book): void {
-    if (book.id != null && confirm('Are you sure you want to delete this book?')) {
-      this.bookService.deleteBook(book.id).subscribe({
+    if (book.bookId != null && confirm('Are you sure you want to delete this book?')) {
+      this.bookService.deleteBook(book.bookId).subscribe({
         next: () => {
           this.loadBooks();
           alert('Book deleted successfully!');
@@ -80,6 +80,6 @@ export class BookItemsComponent implements OnInit {
   }
 
   trackById(index: number, book: Book): number {
-    return book.id!;
+    return book.bookId!;
   }
 }

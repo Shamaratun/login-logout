@@ -17,7 +17,7 @@ export class BookListComponent implements OnInit {
 Empire: Book[] = [];  // Array for storing the list of books
   book: any;
   trackByBook(index: number, book: Book): number {
-    return book.id!;
+    return book.bookId!;
   }
 
   trackEmpire(index: number, book: any): number {

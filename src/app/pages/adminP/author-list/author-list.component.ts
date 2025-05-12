@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorService } from '../../../core/service/author.service';
-
-import { NgFor, NgIf } from '@angular/common';
-import { Author } from '../../../models/author';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AuthorService } from '../../../core/service/author.service';
+import { Author } from '../../../models/author';
 
 @Component({
   selector: 'app-author-list',
-  imports: [FormsModule,NgFor],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './author-list.component.html',
   styleUrls: ['./author-list.component.css']
 })

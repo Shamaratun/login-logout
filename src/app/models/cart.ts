@@ -6,5 +6,6 @@ export class Cart {
   cartID!: number;
   createdDate!: Date;            // or string, depending on backend format
   user!: User;                   // assuming a full user object is returned
-  items!: CartItem[];            // list of cart items
+  items!: CartItem[];  
+  status:	String | undefined          // list of cart items
 }

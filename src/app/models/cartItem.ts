@@ -8,6 +8,9 @@ export class CartItem {
   quantity!: number;
   cart!: Cart;      // or cartID: number; if only the ID is returned
   book!: Book;      // or bookID: number; if only the ID is returned
-}
+
+ priceAtAddTime: number | undefined;
+  addedAt?: string;
 // cartID!: number;
 // bookID!: number;
+}

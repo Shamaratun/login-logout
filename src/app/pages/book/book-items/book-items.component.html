@@ -157,7 +157,7 @@
         <td>{{ i + 1 }}</td>
         <td>{{ book.title }}</td>
         <td>{{ book.isbn }}</td>
-        <td>{{ book.price | currency }}</td>
+        <td>{{ book.price  }}</td>
         <td>{{ book.stock }}</td>
         <td>
           <img *ngIf="book.image" [src]="book.image" alt="Book Image" class="img-thumbnail" style="max-width: 60px;" />

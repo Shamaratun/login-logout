@@ -19,7 +19,7 @@ export class AuthorService {
           const author = new Author();
 
           // Explicitly map all author fields
-      author.authorID = item.authorID;
+      author.authorId = item.authorId;
           author.name = item.name;
           author.bio = item.bio;
           author.country = item.country;
@@ -33,11 +33,18 @@ export class AuthorService {
     );
   }
 
-  createAuthor(author: Author): Observable<Author> {
-    return this.http.post<Author>(this.apiUrl, author, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    }).pipe(catchError(this.handleError));
-  }
+ createAuthor(author: Author): Observable<Author> {
+  const payload = {
+    authorId: author.authorId,  // Use correct keys as backend expects
+    name: author.name,
+    bio: author.bio,
+    dob: author.dob,
+    country: author.country
+  };
+  return this.http.post<Author>(this.apiUrl, payload, {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  }).pipe(catchError(this.handleError));
+}
 
   updateAuthor(authorId: number, author: Author): Observable<Author> {
     return this.http.put<Author>(`${this.apiUrl}/${authorId}`, author, {

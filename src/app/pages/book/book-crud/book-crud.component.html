@@ -1,21 +1,98 @@
-Button to open modal
-<button
-  type="button"
-  class="btn btn-primary m-3"
-  data-bs-toggle="modal"
-  data-bs-target="#addBookModal"
->
-  Add Book
-</button>
+<div class="row p-2">
+  <div class="col-md-8 mx-auto">
+    <h2 class="form-title text-primary text-center mb-4">
+      {{ isUpdate ? 'Update Book' : 'Add New Book' }}
+    </h2>
 
+    <div class="container shadow-lg p-4 bg-white rounded">
+      <form (ngSubmit)="onSubmit()">
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Title:</label>
+          <input type="text" id="title" [(ngModel)]="book.title" name="title" required class="form-control"
+            placeholder="Enter book title" />
+        </div>
 
-<div class="container">
-  <h2 class="text-center">Book List</h2>
-  <table class="table table-bordered">
-    <thead>
+        <!-- ISBN -->
+        <div class="mb-3">
+          <label for="isbn" class="form-label">ISBN:</label>
+          <input type="text" id="isbn" [(ngModel)]="book.isbn" name="isbn" required class="form-control"
+            placeholder="Enter ISBN" />
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3">
+          <label for="price" class="form-label">Price:</label>
+          <input type="number" id="price" [(ngModel)]="book.price" name="price" required class="form-control"
+            placeholder="Enter price" min="0" />
+        </div>
+
+        <!-- Stock -->
+        <div class="mb-3">
+          <label for="stock" class="form-label">Stock:</label>
+          <input type="number" id="stock" [(ngModel)]="book.stock" name="stock" required class="form-control"
+            placeholder="Enter stock quantity" min="0" />
+        </div>
+
+        <!-- Image -->
+        <div class="mb-3">
+          <label for="image" class="form-label">Image URL:</label>
+          <input type="text" id="image" [(ngModel)]="book.image" name="image" class="form-control"
+            placeholder="Enter image URL" />
+        </div>
+
+        <!-- Genre -->
+        <div class="mb-3">
+          <label for="genre" class="form-label">Genre:</label>
+          <select id="genre" [(ngModel)]="book.genre" name="genre" required class="form-select">
+            <option value="" disabled selected>Select genre</option>
+            <option *ngFor="let g of genres" [value]="g">{{ g }}</option>
+          </select>
+        </div>
+
+        <!-- Rating -->
+        <div class="mb-3">
+          <label for="rating" class="form-label">Rating:</label>
+          <input type="number" id="rating" [(ngModel)]="book.rating" name="rating" class="form-control"
+            placeholder="Enter rating (1–5)" min="1" max="5" />
+        </div>
+
+        <!-- Author -->
+        <div class="mb-3">
+          <label for="author" class="form-label">Author:</label>
+          <select id="author" [(ngModel)]="book.author" name="author" required class="form-select">
+            <option value="" disabled selected>Select author</option>
+            <option *ngFor="let a of authors" [ngValue]="a">{{ a.name }}</option>
+          </select>
+        </div>
+
+        <!-- Warehouse -->
+        <div class="mb-3">
+          <label for="warehouse" class="form-label">Warehouse:</label>
+          <select id="warehouse" [(ngModel)]="book.warehouse" name="warehouse" required class="form-select">
+            <option value="" disabled selected>Select warehouse</option>
+            <option *ngFor="let w of warehouses" [ngValue]="w">{{ w.location }}</option>
+          </select>
+        </div>
+
+        <!-- Submit -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">
+            {{ isUpdate ? 'Update Book' : 'Add Book' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <h2 class="text-center text-primary mb-4">Book List</h2>
+
+  <table class="table table-striped table-bordered table-hover shadow-sm">
+    <thead class="table-dark">
       <tr>
         <th>#</th>
-       
         <th>Title</th>
         <th>ISBN</th>
         <th>Price</th>
@@ -23,177 +100,30 @@ Button to open modal
         <th>Image</th>
         <th>Genre</th>
         <th>Rating</th>
-        <th>Created At</th>
-        <th>Updated At</th>
+        <th>Author</th>
+        <th>Warehouse</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let book of books; trackBy: trackByBook">
-        <td>{{ books.indexOf(book) + 1 }}</td>
-     
+      <tr *ngFor="let book of books; let i = index">
+        <td>{{ i + 1 }}</td>
         <td>{{ book.title }}</td>
         <td>{{ book.isbn }}</td>
         <td>{{ book.price }}</td>
         <td>{{ book.stock }}</td>
-        <td><img [src]="book.image" alt="Book Cover" width="50" /></td>
+        <td>
+          <img [src]="book.image" alt="{{ book.title }}" width="50" height="60" class="rounded" *ngIf="book.image" />
+        </td>
         <td>{{ book.genre }}</td>
-        <td>{{ book.rating }}</td>
-       
+        <td>{{ book.rating }}/5</td>
+        <td>{{ book.author.name }}</td>
+        <td>{{ book.warehouse.location }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary me-2" (click)="editBook(book)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteBook(book.bookId)">Delete</button>
+        </td>
       </tr>
     </tbody>
-    
   </table>
 </div>
-
-<!-- 
-<div
-  class="modal fade"
-  id="addBookModal"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="addBookModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <form (ngSubmit)="saveBook()">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addBookModalLabel">Add Book</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body">
-          <div class="row g-3">
-          
-            <div class="col-md-6">
-              <label for="title" class="form-label">Title</label>
-              <input type="text" class="form-control" id="title" [(ngModel)]="b.title" name="title" required />
-            </div>
-            <div class="col-md-6">
-              <label for="isbn" class="form-label">ISBN</label>
-              <input type="text" class="form-control" id="isbn" [(ngModel)]="books.isbn" name="isbn" required />
-            </div>
-            <div class="col-md-6">
-              <label for="price" class="form-label">Price</label>
-              <input type="number" class="form-control" id="price" [(ngModel)]="books.price" name="price" required />
-            </div>
-            <div class="col-md-6">
-              <label for="stock" class="form-label">Stock</label>
-              <input type="number" class="form-control" id="stock" [(ngModel)]="books.stock" name="stock" required />
-            </div>
-            <div class="col-md-6">
-              <label for="image" class="form-label">Image URL</label>
-              <input type="text" class="form-control" id="image" [(ngModel)]="books.image" name="image" />
-            </div>
-            <div class="col-md-6">
-              <label for="genre" class="form-label">Genre</label>
-              <input type="text" class="form-control" id="genre" [(ngModel)]="books.genre" name="genre" required />
-            </div>
-            <div class="col-md-6">
-              <label for="rating" class="form-label">Rating</label>
-              <input type="number" step="0.1" max="5" min="0" class="form-control" id="rating" [(ngModel)]="books.rating" name="rating" />
-            </div>
-
-            </div>
-          </div>
-      
-
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div> -->
-<!-- <h1 class="form-title">Add a Book</h1>
-<form (ngSubmit)="onSubmit()" class="book-form">
-  <div class="form-group">
-    <label for="title" class="form-label">Title:</label>
-    <input
-      type="text"
-      placeholder="Enter the name of the book"
-      name="title"
-      id="title"
-      [(ngModel)]="b.title"
-      class="form-input"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="author" class="form-label">Author:</label>
-    <input
-      type="text"
-      placeholder="Enter the author name"
-      name="author"
-      id="author"
-      [(ngModel)]="b.author"
-      class="form-input"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="genre" class="form-label">Genre:</label>
-    <input
-      type="text"
-      placeholder="Enter genre"
-      name="genre"
-      id="genre"
-      [(ngModel)]="b.genre"
-      class="form-input"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="publisher" class="form-label">Publisher:</label>
-    <input
-      type="text"
-      name="publisher"
-      id="publisher"
-      [(ngModel)]="b.publisher"
-      class="form-input"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="publishedDate" class="form-label">Published Date:</label>
-    <input
-      type="date"
-      placeholder="Enter published date"
-      name="publishedDate"
-      id="publishedDate"
-      [(ngModel)]="b.publicationDate"
-      class="form-input"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="price" class="form-label">Price:</label>
-    <input
-      type="number"
-      placeholder="Enter Price"
-      name="price"
-      id="price"
-      [(ngModel)]="b.price"
-      class="form-input"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="targetAudience" class="form-label">Target Audience:</label>
-    <input
-      type="text"
-      placeholder="Enter target audience"
-      name="targetAudience"
-      id="targetAudience"
-      [(ngModel)]="b.targetAudience"
-      class="form-input"
-    />
-  </div>
-
-  <div class="form-action">
-    <button type="submit" class="submit-btn">
-      {{ isUpdate ? 'Update' : 'Submit' }}
-    </button>
-  </div>
-</form> -->

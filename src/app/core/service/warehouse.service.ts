@@ -1,39 +1,61 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Warehouse } from '../../models/warehouse';
-
 
 @Injectable({
   providedIn: 'root',
 })
 export class WarehouseService {
-  private apiUrl = 'http://localhost:8080/api/warehouses'; // Your API endpoint
+  private apiUrl = 'http://localhost:8080/api/warehouses';
 
   constructor(private http: HttpClient) {}
 
-  // Get all warehouses
-  getAllWarehouses(): Observable<Warehouse[]> {
-    return this.http.get<Warehouse[]>(this.apiUrl);
+  getWarehouses(): Observable<Warehouse[]> {
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      map((data) =>
+        data.map((item) => {
+          const warehouse = new Warehouse();
+
+          // Explicitly map fields based on API response keys
+          warehouse.warehouseId = item.warehouseId;
+          warehouse.location = item.location;
+          warehouse.stockLevel = item.stockLevel;
+
+          return warehouse;
+        })
+      ),
+      catchError(this.handleError)
+    );
   }
 
-  // Get a specific warehouse by ID
-  getWarehouseById(id: number): Observable<Warehouse> {
-    return this.http.get<Warehouse>(`${this.apiUrl}/${id}`);
-  }
-
-  // Create a new warehouse
   createWarehouse(warehouse: Warehouse): Observable<Warehouse> {
-    return this.http.post<Warehouse>(this.apiUrl, warehouse);
+    return this.http.post<Warehouse>(this.apiUrl, warehouse, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    }).pipe(catchError(this.handleError));
   }
 
-  // Update an existing warehouse by ID
   updateWarehouse(id: number, warehouse: Warehouse): Observable<Warehouse> {
-    return this.http.put<Warehouse>(`${this.apiUrl}/${id}`, warehouse);
+    return this.http.put<Warehouse>(`${this.apiUrl}/${id}`, warehouse, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    }).pipe(catchError(this.handleError));
   }
 
-  // Delete a warehouse by ID
   deleteWarehouse(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: any): Observable<never> {
+    let errorMessage = 'An error occurred';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.error?.message || 'Server error'}`;
+    }
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }

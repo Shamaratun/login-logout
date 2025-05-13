@@ -1,20 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Book } from '../../../models/book.model';
-import { BookService } from '../../../core/service/book.service';
-
+import { Component, OnInit } from "@angular/core";
+import { BookService } from "../../../core/service/book.service";
+import { Books } from "../../../models/book.model";
+import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
 @Component({
-  selector: 'app-book-items',
-  standalone: true,
+  selector: "app-book-items",
   imports: [FormsModule, CommonModule],
-  templateUrl: './book-items.component.html',
-  styleUrls: ['./book-items.component.css']
+  templateUrl: "./book-items.component.html",
+  styleUrls: ["./book-items.component.css"],
 })
 export class BookItemsComponent implements OnInit {
-  books: Book[] = [];
-  book: Book = new Book(); // form model
+  books: Books[] = [];
+  book: Books = new Books();
   isUpdate: boolean = false;
   currentEditId: number | null = null;
 
@@ -26,7 +23,7 @@ export class BookItemsComponent implements OnInit {
 
   loadBooks(): void {
     this.bookService.getBooks().subscribe({
-      next: (data) => (this.books = data),
+      next: (data) => (this.books = data.map(b => new Books(b))),
       error: (err) => console.error('Error loading books:', err),
     });
   }
@@ -53,15 +50,13 @@ export class BookItemsComponent implements OnInit {
     }
   }
 
-
-  
-  editBook(book: Book): void {
-    this.book = { ...book };
+  editBook(book: Books): void {
+    this.book = new Books(book);
     this.currentEditId = book.bookId!;
     this.isUpdate = true;
   }
 
-  deleteBook(book: Book): void {
+  deleteBook(book: Books): void {
     if (book.bookId != null && confirm('Are you sure you want to delete this book?')) {
       this.bookService.deleteBook(book.bookId).subscribe({
         next: () => {
@@ -74,12 +69,12 @@ export class BookItemsComponent implements OnInit {
   }
 
   resetForm(): void {
-    this.book = new Book();
+    this.book = new Books();
     this.isUpdate = false;
     this.currentEditId = null;
   }
 
-  trackById(index: number, book: Book): number {
+  trackById(index: number, book: Books): number {
     return book.bookId!;
   }
 }

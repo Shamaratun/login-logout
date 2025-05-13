@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Book } from '../../models/book.model';
+import { Books } from '../../models/book.model';
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -12,26 +14,37 @@ export class BookService {
 
   constructor(private http: HttpClient) {}
 
-  getBooks(): Observable<Book[]> {
+  getBooks(): Observable<Books[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(
       map((data) =>
         data.map((item) => {
-          const book = new Book();
-
-          // ✅ FIXED: Use bookId instead of id
-          book.bookId = item.bookId;
-
-          book.title = item.title;
-          book.isbn = item.isbn;
-          book.price = item.price;
-          book.stock = item.stock;
-          book.image = item.image;
-          book.genre = item.genre;
-          book.rating = item.rating;
-          book.author = item.author;
-          book.createdAt = item.createdAt;
-          book.updatedAt = item.updatedAt;
-
+          const book: Books = {
+  bookId: item.bookId,
+  title: item.title,
+  isbn: item.isbn,
+  price: item.price,
+  stock: item.stock,
+  image: item.image,
+  genre: item.genre,
+  rating: item.rating,
+  createdAt: item.createdAt,
+  updatedAt: item.updatedAt,
+  author: {
+    authorId: item.author?.authorId,
+    name: item.author?.name,
+    bio: item.author?.bio,
+    country: item.author?.country,
+    dob: item.author?.dob,
+    books: item.author?.books,
+  },
+  warehouse: {
+    warehouseId: item.warehouse?.warehouseId,
+    
+    location: item.warehouse?.location,
+    stockLevel: 0
+  },
+  reviews: item.reviews || [],
+};
           return book;
         })
       ),
@@ -39,14 +52,14 @@ export class BookService {
     );
   }
 
-  createBook(book: Book): Observable<Book> {
-    return this.http.post<Book>(this.apiUrl, book, {
+  createBook(book: Books): Observable<Books> {
+    return this.http.post<Books>(this.apiUrl, book, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     }).pipe(catchError(this.handleError));
   }
 
-  updateBook(bookId: number, book: Book): Observable<Book> {
-    return this.http.put<Book>(`${this.apiUrl}/${bookId}`, book, {
+  updateBook(bookId: number, book: Books): Observable<Books> {
+    return this.http.put<Books>(`${this.apiUrl}/${bookId}`, book, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     }).pipe(catchError(this.handleError));
   }

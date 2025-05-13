@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthorService } from '../../../core/service/author.service';
+
 import { Author } from '../../../models/author';
+import { AuthorService } from '../../../core/service/author.service';
 
 @Component({
   selector: 'app-author-list',
@@ -54,13 +55,13 @@ export class AuthorListComponent implements OnInit {
 
   editAuthor(author: Author): void {
     this.author = { ...author };
-    this.currentEditId = author.authorID!;
+    this.currentEditId = author.authorId!;
     this.isUpdate = true;
   }
 
   deleteAuthor(author: Author): void {
-    if (author.authorID != null && confirm('Are you sure you want to delete this author?')) {
-      this.authorService.deleteAuthor(author.authorID).subscribe({
+    if (author.authorId != null && confirm('Are you sure you want to delete this author?')) {
+      this.authorService.deleteAuthor(author.authorId).subscribe({
         next: () => {
           this.loadAuthors();
           alert('Author deleted successfully!');
@@ -77,6 +78,6 @@ export class AuthorListComponent implements OnInit {
   }
 
   trackById(index: number, author: Author): number {
-    return author.authorID!;
+    return author.authorId!;
   }
 }

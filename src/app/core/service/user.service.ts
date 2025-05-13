@@ -24,9 +24,7 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  /**
-   * Retrieves all users.
-   */
+  
   getUsers(): Observable<UserResponse[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(
       map((data) =>

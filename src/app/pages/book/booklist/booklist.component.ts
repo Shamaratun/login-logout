@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
-import { Book } from '../../../models/book.model';
+import { Books } from '../../../models/book.model';
 import { NgFor } from '@angular/common';
 
 // 
@@ -14,9 +14,9 @@ import { NgFor } from '@angular/common';
 })
 export class BookListComponent implements OnInit {
   
-Empire: Book[] = [];  // Array for storing the list of books
+Empire: Books[] = [];  // Array for storing the list of books
   book: any;
-  trackByBook(index: number, book: Book): number {
+  trackByBook(index: number, book: Books): number {
     return book.bookId!;
   }
 
@@ -32,12 +32,12 @@ Empire: Book[] = [];  // Array for storing the list of books
     this.Empire = booksFromStorage;
   }
 
-  editBook(book: Book): void {
+  editBook(book: Books): void {
     // Send the selected book as state to navigate to the form for updating
     this.router.navigate(['/'], { state: { books: book } });
   }
 
-  deleteBook(bookToDelete: Book): void {
+  deleteBook(bookToDelete: Books): void {
     if (confirm('Are you sure you want to delete this book?')) {
       // Remove the book from the Empire array by filtering out the book
       this.Empire = this.Empire.filter(book => book !== bookToDelete);

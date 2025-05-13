@@ -28,7 +28,7 @@ import { AvailableBooksComponent } from './pages/book/available-books/available-
 import { AboutUsComponent } from './about/about-us/about-us.component';
 import { ContactUsComponent } from './about/contact-us/contact-us.component';
 import { CatagoryComponent } from './pages/book/catagory/catagory.component';
-import { RegFormComponent } from './pages/adminP/reg-form/reg-form.component';
+import { WarehouseComponent } from './pages/adminP/warehouse/warehouse.component';
 import { AuthorListComponent } from './pages/adminP/author-list/author-list.component';
 
 export const routes: Routes = [ {
@@ -67,9 +67,9 @@ export const routes: Routes = [ {
         { path: 'viewer-view', component: ViewerViewComponent },
         { path: 'admin-view', component: AdminViewComponent },
         {path:'catagory', component: CatagoryComponent},
-        {path:'reg-form', component: RegFormComponent},
+        {path:'warehouse', component: WarehouseComponent},
            {path:'author-list', component: AuthorListComponent},        
-        // { path: '', redirectTo: 'home' },
+        { path: 'book-crud', component: BookCRUDComponent },
         { path: '**', redirectTo: 'home' },
    
 //     {

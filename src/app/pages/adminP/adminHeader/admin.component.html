@@ -8,5 +8,12 @@
   <a class="nav-link " href="http://localhost:4200/booklist">Booklist</a>
 
   <a class=" nav-link" href="http://localhost:4200/customer-list">Customer List</a>
-  
+ 
+<div class="mb-3">
+  <label for="book" class="form-label">Book:</label>
+  <select id="book" [(ngModel)]="selectedBook" name="book" required class="form-select">
+    <option value="" disabled selected>Select a book</option>
+    <option *ngFor="let book of books" [ngValue]="book">{{ book.title }}</option>
+  </select>
+</div>
 </nav>

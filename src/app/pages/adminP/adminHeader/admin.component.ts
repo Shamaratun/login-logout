@@ -23,7 +23,7 @@ export class AdminComponent implements OnInit {
     this.loadBooks();
   }
 
-  loadBooks(): void {
+  loadBooks() {
     this.bookService.getBooks().subscribe({
       next: (data) => {
         this.books = data;

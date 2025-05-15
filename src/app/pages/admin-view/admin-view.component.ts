@@ -13,5 +13,6 @@ import { CustomerListComponent } from "../customer-list/customer-list.component"
   styleUrl: './admin-view.component.css'
 })
 export class AdminViewComponent {
+userRole: any;
 
 }

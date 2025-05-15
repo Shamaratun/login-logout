@@ -1,3 +1,10 @@
+.bg-image {
+  background-image: url('https://media.istockphoto.com/id/2155852442/photo/sofas-in-the-public-leisure-area-in-the-library.jpg?s=1024x1024&w=is&k=20&c=WHK76VwfRgoTKCbQINgtps9qLf7Mio4pZ43SsTwUDl8=');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Adjust height as needed */
+}
 .book-image {
     height: 250px;
     object-fit: cover;

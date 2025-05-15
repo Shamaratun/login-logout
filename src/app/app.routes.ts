@@ -31,52 +31,54 @@ import { CatagoryComponent } from './pages/book/catagory/catagory.component';
 import { WarehouseComponent } from './pages/adminP/warehouse/warehouse.component';
 import { AuthorListComponent } from './pages/adminP/author-list/author-list.component';
 
-export const routes: Routes = [ {
-    path: '',component: LoginViewComponent },
-    { path: 'registration', component: RegistrationComponent },
-    {
-        path: 'main-layout', component: MainLayoutComponent,},
-      {path: 'header', component: HeaderComponent},
+export const routes: Routes = [{
+        path: '', component: LoginViewComponent
+},
+{ path: 'registration', component: RegistrationComponent },
+{
+        path: 'main-layout', component: MainLayoutComponent,
+},
+{ path: 'header', component: HeaderComponent },
 // {
 //     path: '',
 //     component: HeaderComponent,
 //     canActivate: [authGuard],
 //     children: [
-        { path: 'booklist', component: BookListComponent },  // Path for the BookList component
-        { path: 'bookCRUD', component: BookCRUDComponent },  // Path for the BookCRUD component
-         { path: 'customer-list', component: CustomerListComponent },
-        { path: 'customer-list', component: CustomerViewComponent },
-        { path: 'catagory-crud-list', component: CatagoryCrudListComponent },
-        { path: 'dashboard', component: DashboardComponent },
-        { path: 'islami-booklist', component: IslamiBooklistComponent },
-        { path: 'customer-view', component: CustomerViewComponent },
-         { path: 'writers-crud-list', component: WritersCrudListComponent },
-        { path: 'book-items', component: BookItemsComponent },
-         { path: 'adminHeader', component: AdminComponent },
-      {path: 'about-us', component: AboutUsComponent},
-      {path: 'contact-us', component: ContactUsComponent},
-       {path: 'main-layout', component: MainLayoutComponent},
-       {path: 'footer', component: FooterComponent},
-       {path: 'sidebar', component: SidebarComponent},
-        { path: 'admin', component: AdminViewComponent },
-        { path: 's-list', component: SListComponent },
-        { path: 'cart', component: CartComponent },
-        { path: 'dashboard', component: DashboardComponent },
-        {path: 'all-books', component: AvailableBooksComponent},
-{path: 'common-view', component: CommonViewComponent},
-        { path: 'viewer-view', component: ViewerViewComponent },
-        { path: 'admin-view', component: AdminViewComponent },
-        {path:'catagory', component: CatagoryComponent},
-        {path:'warehouse', component: WarehouseComponent},
-           {path:'author-list', component: AuthorListComponent},        
-        { path: 'book-crud', component: BookCRUDComponent },
-        { path: '**', redirectTo: 'home' },
-   
-//     {
-//         path: '',
-//         component: HeaderComponent,
-//         canActivate: [authGuard],
-//         children: [
-//         ],
-// },
+{ path: 'booklist', component: BookListComponent },  // Path for the BookList component
+{ path: 'bookCRUD', component: BookCRUDComponent },  // Path for the BookCRUD component
+{ path: 'customer-list', component: CustomerListComponent },
+{ path: 'customer-list', component: CustomerViewComponent },
+{ path: 'catagory-crud-list', component: CatagoryCrudListComponent },
+{ path: 'dashboard', component: DashboardComponent },
+{ path: 'islami-booklist', component: IslamiBooklistComponent },
+{ path: 'customer-view', component: CustomerViewComponent },
+{ path: 'writers-crud-list', component: WritersCrudListComponent },
+{ path: 'book-items', component: BookItemsComponent },
+{ path: 'adminHeader', component: AdminComponent },
+{ path: 'about-us', component: AboutUsComponent },
+{ path: 'contact-us', component: ContactUsComponent },
+{ path: 'main-layout', component: MainLayoutComponent },
+{ path: 'footer', component: FooterComponent },
+{ path: 'sidebar', component: SidebarComponent },
+{ path: 'admin', component: AdminViewComponent },
+{ path: 's-list', component: SListComponent },
+{ path: 'cart', component: CartComponent },
+{ path: 'dashboard', component: DashboardComponent },
+{ path: 'all-books', component: AvailableBooksComponent },
+{ path: 'common-view', component: CommonViewComponent },
+{ path: 'viewer-view', component: ViewerViewComponent },
+{ path: 'admin-view', component: AdminViewComponent },
+{ path: 'catagory', component: CatagoryComponent },
+{ path: 'warehouse', component: WarehouseComponent },
+{ path: 'author-list', component: AuthorListComponent },
+{ path: 'book-crud', component: BookCRUDComponent },
+{ path: '**', redirectTo: 'home' },
+
+        //     {
+        //         path: '',
+        //         component: HeaderComponent,
+        //         canActivate: [authGuard],
+        //         children: [
+        //         ],
+        // },
 ];

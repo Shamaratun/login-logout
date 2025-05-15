@@ -1,49 +1,41 @@
-.login {
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 40px 30px;
+.container-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Left side image */
+.bg-image {
+  flex:2;
+  background-image: url('https://img.freepik.com/premium-photo/cybersecurity-protects-login-secure-internet-access-businessman-using-laptop-internet-network-data-protection-significance-secure-login-data-protection-digital-world_1226545-831.jpg?ga=GA1.1.2140115462.1747283281&semt=ais_hybrid&w=740');
+  
+  height: 100vh; /* Adjust height as needed */
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Right side form */
+.login-form {
+  height: 400;
+  width: 100px;
+ flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
   background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
 }
 
-.login h2 {
-  margin-bottom: 24px;
-  font-size: 28px;
-  color: #333;
-}
-
-.login input {
-  width: 100%;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+/* Input styling (optional, Bootstrap used if you have it) */
+input {
+  height: 45px;
+  padding: 10px;
   font-size: 16px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
 }
 
-.login input:focus {
-  border-color: #007bff;
-  outline: none;
-}
 
-.login button {
-  width: 100%;
-  padding: 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 16px;
-}
-
-.login button:hover {
-  background-color: #0056b3;
-}

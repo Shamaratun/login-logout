@@ -1,10 +1,15 @@
+<div class="container-wrapper">
+  <!-- Left side: Background image -->
+  <div class="bg-image"></div>
 
-<div class="login">
-    <h2>Login</h2>
-    <input type="text" [(ngModel)]="email" placeholder="Email">
-    <input type="password" [(ngModel)]="password" placeholder="Password">
-    <button (click)="onLogin()">Login</button>
-
-   <a href="http://localhost:4200/registration" class="btn btn-outline-primary w-100">Register as Customer</a>
-<!-- <button routerLink="/registration" class="btn btn-outline-primary w-100">Register as Customer</button> -->
- </div> 
+  <!-- Right side: Login form -->
+  <div class="login-form">
+    <h2 class="mb-4">Login</h2>
+    <input type="text" [(ngModel)]="email" placeholder="Email" class="form-control mb-3" />
+    <input type="password" [(ngModel)]="password" placeholder="Password" class="form-control mb-3" />
+    <a class="btn btn-primary w-100 mb-2" (click)="onLogin()">Login</a>
+    <a href="http://localhost:4200/registration" class="btn btn-outline-primary w-100">Register as Customer</a>
+ Already have an account? <a href="/login-view">Login here</a>  
+</div>
+    
+</div>

@@ -18,10 +18,10 @@ export class RegistrationComponent {
     role: 'CUSTOMER',
     address: '',
     nid:1,
-    phoneNumber: '', // or Integer phoneNumber if you kept that 
+    phoneNumber: '', 
     fullName :'',
-    username:'', // or Integer nid if
-																									// you kept that
+    username:'',
+		
 		
   };
   confirmPassword = '';

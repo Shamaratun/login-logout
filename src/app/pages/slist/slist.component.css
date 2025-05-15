@@ -1,4 +1,108 @@
 
+  .bg-image {
+  /* background-image: url('assets/images/bg.jpg');  */
+  background-size: cover;              /* scales image to cover full container */
+  background-position: center center;  /* keeps image centered */
+  background-repeat: no-repeat;        /* avoids repeating */
+  height: 100vh;                       /* full viewport height */
+  width: 100%;                         /* full width */
+  display: flex;                       /* center content if needed */
+  justify-content: center;
+  align-items: center;
+}
+.ec-brand-img {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+.ec-cpn-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ec-cpn-desc {
+  font-size: 0.9rem;
+  color: #666;
+}
+.ec-cpn-code {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ec-offer-coupon {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.ec-offer-coupon:hover {
+  transform: translateY(-5px);
+}
+
+
+
+.ec-offer-coupon .ec-cpn-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.ec-offer-coupon .ec-cpn-desc {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.ec-offer-coupon .ec-cpn-code {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ec-offer-coupon .ec-cpn-code a {
+  font-size: 0.8rem;
+  color: #4b0082;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ec-offer-coupon .ec-cpn-code a:hover {
+  color: #4a148c;
+}
+
+.ec-offer-coupon .ec-cpn-code svg {
+  width: 20px;
+  height: 20px;
+  fill: #4b0082;
+}
+
+.ec-offer-coupon .ec-cpn-code svg:hover {
+  fill: #4a148c;
+}
+
+
+  .labels {
+    padding: 50px 0;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+  }
+
+  .labels h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+
+  .labels p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
   .authors-wrapper {
     padding: 20px;
   }
@@ -29,8 +133,8 @@
   }
 
   .card img {
-    width: 80px;
-    height: 80px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 12px;

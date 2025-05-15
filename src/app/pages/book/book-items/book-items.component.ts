@@ -3,6 +3,7 @@ import { BookService } from "../../../core/service/book.service";
 import { Books } from "../../../models/book.model";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { AuthService } from "../../../core/auth.service";
 @Component({
   selector: "app-book-items",
   imports: [FormsModule, CommonModule],
@@ -14,11 +15,15 @@ export class BookItemsComponent implements OnInit {
   book: Books = new Books();
   isUpdate: boolean = false;
   currentEditId: number | null = null;
+userRole= '';
 
-  constructor(private bookService: BookService) {}
-
+  constructor(private bookService: BookService,private auth: AuthService) {}
+ 
+   
+  
   ngOnInit(): void {
-    this.loadBooks();
+    this.loadBooks(), this.userRole = this.auth.getUserRole();
+    
   }
 
   loadBooks(): void {

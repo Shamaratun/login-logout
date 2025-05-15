@@ -1,4 +1,28 @@
-/* Ensure Content is Below Navbar */
+.bg-image {
+  background-image: url('https://img.freepik.com/free-photo/realistic-scene-neighborhood-yard-sale-with-miscellaneous-items_23-2151238233.jpg?ga=GA1.1.2140115462.1747283281&semt=ais_hybrid&w=740');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Adjust height as needed */
+  
+}
+
+  .navbar {
+    height: 80px;
+  }
+  
+  /* Navbar Padding */
+  .navbar .container-fluid {
+    padding: 0 20px;
+  }
+  
+  /* Navbar Shadow */
+  .navbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  /* Body Padding for Fixed Navbar */ 
 body {
     padding-top: 80px; /* Adjust based on navbar height */
   }

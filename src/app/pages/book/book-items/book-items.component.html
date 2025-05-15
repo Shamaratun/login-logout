@@ -1,4 +1,4 @@
-<div class="row p-2">
+ @if (userRole === 'patient'){<div class="row p-2">
   <!-- Form Section -->
   <div class="col-md-6">
     <h1 class="form-title text-primary text-center">Add / Update Book</h1>
@@ -63,6 +63,7 @@
     </div>
   </div>
 </div>
+}
 <!-- <button
   type="button"
   class="btn btn-primary"
@@ -164,10 +165,13 @@
         </td>
         <td>{{ book.genre }}</td>
         <td>{{ book.rating }}</td>
+         @if (userRole === 'patient'){
         <td>
+          
           <button class="btn btn-sm btn-warning me-1" (click)="editBook(book)">Edit</button>
           <button class="btn btn-sm btn-danger" (click)="deleteBook(book)">Delete</button>
         </td>
+      }
       </tr>
     </tbody>
   </table>

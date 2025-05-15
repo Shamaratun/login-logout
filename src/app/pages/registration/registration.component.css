@@ -1,3 +1,12 @@
+.bg-image {
+  background-image: url('https://img.freepik.com/free-vector/online-registration-isometric-landing-page_107791-6156.jpg?ga=GA1.1.2140115462.1747283281&semt=ais_hybrid&w=740');
+  margin: 40px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+ 
+  
+}
 body {
     background: linear-gradient(to right, #667eea, #764ba2);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

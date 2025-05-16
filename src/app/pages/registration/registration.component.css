@@ -1,6 +1,5 @@
 .bg-image {
-  background-image: url('https://img.freepik.com/free-vector/online-registration-isometric-landing-page_107791-6156.jpg?ga=GA1.1.2140115462.1747283281&semt=ais_hybrid&w=740');
-  margin: 40px;
+  background: url('https://media.istockphoto.com/id/2157599941/photo/digital-documentation-signature-technology-document-management-system-and-online.jpg?s=1024x1024&w=is&k=20&c=xzItvYs2PKHp1GTFroGdwdnvKr15-DYZm1bD3NXPb7s=');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -20,6 +19,7 @@ body {
   }
   
   .container {
+    float: right;
     padding: 20px;
   }
   

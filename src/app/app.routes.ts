@@ -30,6 +30,9 @@ import { ContactUsComponent } from './about/contact-us/contact-us.component';
 import { CatagoryComponent } from './pages/book/catagory/catagory.component';
 import { WarehouseComponent } from './pages/adminP/warehouse/warehouse.component';
 import { AuthorListComponent } from './pages/adminP/author-list/author-list.component';
+import { OfferComponent } from './design/offer/offer.component';
+import { DiscountComponent } from './design/discount/discount.component';
+import { BookDetailsComponent } from './design/book-details/book-details.component';
 
 export const routes: Routes = [{
         path: '', component: LoginViewComponent
@@ -72,6 +75,10 @@ export const routes: Routes = [{
 { path: 'warehouse', component: WarehouseComponent },
 { path: 'author-list', component: AuthorListComponent },
 { path: 'book-crud', component: BookCRUDComponent },
+
+{path  :'offer', component: OfferComponent},
+{path :'discount', component: DiscountComponent},
+{path :'book-details', component: BookDetailsComponent},
 { path: '**', redirectTo: 'home' },
 
         //     {

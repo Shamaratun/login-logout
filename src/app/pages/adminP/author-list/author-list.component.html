@@ -63,7 +63,7 @@
         <td>{{ author.name }}</td>
         <td>{{ author.bio }}</td>
         <td>{{ author.country }}</td>
-        <td>{{ author.dob }}</td>
+        <td>{{ author.dob |date:'mediumDate' }}</td>
         <td>
           <button class="btn btn-sm btn-warning me-1" (click)="editAuthor(author)">Edit</button>
           <button class="btn btn-sm btn-danger" (click)="deleteAuthor(author)">Delete</button>

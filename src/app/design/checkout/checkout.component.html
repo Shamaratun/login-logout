@@ -1,0 +1,63 @@
+<div id="shipping-address-cart-page">
+
+  <!-- Checkout Summary -->
+  <div class="item">
+    <div class="shipping-header">
+      <h4 class="title">Checkout Summary</h4>
+    </div>
+    <div class="checkout">
+      <p class="checkout__item">Subtotal <span>{{ subtotal }} TK.</span></p>
+
+      <p class="checkout__item" *ngIf="discount > 0">
+        Discount <span class="text-danger">-{{ discount }} TK.</span>
+      </p>
+
+      <p class="checkout__item">Online Fee <span>{{ shippingCharge }} TK.</span></p>
+
+      <p class="checkout__item" *ngIf="starDiscount > 0">
+        Star Discount <span class="text-danger">-{{ starDiscount }} TK.</span>
+      </p>
+
+      <p class="checkout__item">Total <span>{{ grandTotal }} TK.</span></p>
+
+      
+      <p class="checkout__item font-weight-bold">
+        Payable Total <span>{{ payableTotal }} TK.</span>
+      </p>
+    </div>
+
+    
+  <!-- Buttons -->
+  <div class="gift-in-checkout-summary" id="js-shipping">
+    <p class="text-danger pb-2" *ngIf="requireMessage">{{ requireMessage }}</p>
+
+    <div class="align-items-center">
+      <a
+        class="btn gift-btn"
+        (click)="continueToGift()"
+        style="cursor: pointer;"
+      >
+        উপহার হিসেবে অর্ডার করুন
+      </a>
+
+      <a
+        class="btn cart-btn-new checkoutsummary-btn shipping-btn"
+        (click)="continueToShipping()"
+        style="cursor: pointer;"
+      >
+        <span>
+          Proceed to Checkout
+          <img
+            src="/static/200/images/svg/icons/rok-icon-arrow-right.svg"
+            class="icon-arrow-right-animation"
+            alt="arrow right"
+          />
+        </span>
+      </a>
+    </div>
+
+    <p class="text-secondary">
+      Apply <b>Promo Code or Voucher Code</b> on the Shipping Page
+    </p>
+  </div>
+</div>

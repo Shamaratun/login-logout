@@ -5,7 +5,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { CartComponent } from "../../cart/cart.component";
 import { Writer } from '../../../app.component';
-import { CartService } from '../../cart/cart.service';
+import { CartService } from '../../../core/service/cart.service';
 
 
 
@@ -18,9 +18,9 @@ import { CartService } from '../../cart/cart.service';
   styleUrls: ['./writers-crud-list.component.css']
 })
 export class WritersCrudListComponent implements OnInit {
+  
   cartServeice = inject(CartService); 
-  carts: Writer[] = [];
-
+  carts: Writer[] = []; 
   writers: Writer[] = []; // Array to store books data
   writer: Writer = new Writer(0, '', '', 0, 0, ''); // Object for form data
   isUpdate: boolean = false; // Flag to check if it’s update mode
@@ -35,7 +35,7 @@ export class WritersCrudListComponent implements OnInit {
       this.writers = JSON.parse(writersFromStorage) as Writer[];
     }
     console.log('Writers:', this.writers); // Check if writers are loaded
-
+ 
     let allCarts = JSON.parse(localStorage.getItem('customers') || '[]');
     this.carts =allCarts;
   }

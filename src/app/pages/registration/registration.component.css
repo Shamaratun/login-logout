@@ -1,11 +1,16 @@
-.bg-image {
-  background: url('https://media.istockphoto.com/id/2157599941/photo/digital-documentation-signature-technology-document-management-system-and-online.jpg?s=1024x1024&w=is&k=20&c=xzItvYs2PKHp1GTFroGdwdnvKr15-DYZm1bD3NXPb7s=');
+.form-background {
+
+background-image: url('../../assets/images/R.jpg');
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
- 
-  
+  height: 150vh;
+  /* display: flex;
+  justify-content: center; */
 }
+
+ 
+
 body {
     background: linear-gradient(to right, #667eea, #764ba2);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

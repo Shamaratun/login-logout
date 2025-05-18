@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
-import { CartService } from '../../cart/cart.service';
+import { CartService } from '../../../core/service/cart.service';
 import { Catagory } from '../../../app.component';
 
 

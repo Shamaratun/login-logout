@@ -23,18 +23,15 @@ export class CartItemService {
     return this.http.put<CartItem>(`${this.apiUrl}/${cartItemId}`, cartItem);
   }
 
-  // Remove an item from the cart
-  removeItemFromCart(cartId: number, cartItemId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/cart/${cartId}/item/${cartItemId}`);
-  }
+getCartItems(): Observable<CartItem[]> {
+  return this.http.get<CartItem[]>(`${this.apiUrl}/items`);
+}
 
-  // Get all cart items for a specific cart
-  getCartItemsByCartId(cartId: number): Observable<CartItem[]> {
-    return this.http.get<CartItem[]>(`${this.apiUrl}/cart/${cartId}`);
-  }
+removeCartItem(cartItemID: number): Observable<void> {
+  return this.http.delete<void>(`${this.apiUrl}/items/${cartItemID}`);
+}
 
-  // Get a specific cart item by its ID
-  getCartItemById(cartItemId: number): Observable<CartItem> {
-    return this.http.get<CartItem>(`${this.apiUrl}/${cartItemId}`);
-  }
+checkoutCartItem(customerName: string): Observable<any> {
+  return this.http.post(`${this.apiUrl}/checkout`, { customerName });
+}
 }

@@ -4,6 +4,11 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Books } from '../../../models/book.model';
 import { NgFor } from '@angular/common';
+import { BookService } from '../../../core/service/book.service';
+import { WarehouseService } from '../../../core/service/warehouse.service';
+import { AuthorService } from '../../../core/service/author.service';
+import { Author } from '../../../models/author';
+import { Warehouse } from '../../../models/warehouse';
 
 // 
 @Component({
@@ -13,42 +18,78 @@ import { NgFor } from '@angular/common';
   styleUrls: ['./booklist.component.css'],
 })
 export class BookListComponent implements OnInit {
-  
-Empire: Books[] = [];  // Array for storing the list of books
-  book: any;
-  trackByBook(index: number, book: Books): number {
-    return book.bookId!;
+
+ books: Books[] = []; 
+ author: Author[] = []; 
+  warehouse: Warehouse[] = [];
+  trackByBook(index: number, books: Books): number {
+     return books.bookId!;
+  }
+    constructor(
+       private router:Router,
+       private bookService: BookService,
+        private warehouseService: WarehouseService,
+       private authorService: AuthorService){  }
+
+   ngOnInit(): void {
+    this.bookService.getAllBooks().subscribe((data) => {
+      this.books = data;
+
+    });
   }
 
-  trackEmpire(index: number, book: any): number {
-    return book.id;
+  // this is the method to get all the data from the data base
+
+  saveBook() {
+    this.bookService.getAllBooks().subscribe((data) => {
+      this.books = data;
+      
+    });
   }
 
-  constructor(private router: Router) { }
-
-  ngOnInit(): void {
-    // Retrieve books from localStorage with the correct key and assign to Empire
-    const booksFromStorage = JSON.parse(localStorage.getItem('book') || '[]'); // Change 'books' to 'book'
-    this.Empire = booksFromStorage;
+  editBook(a: Books) {
+    this.router.navigate(['/book-crud'], { state: { a } });
   }
 
-  editBook(book: Books): void {
-    // Send the selected book as state to navigate to the form for updating
-    this.router.navigate(['/'], { state: { books: book } });
-  }
-
-  deleteBook(bookToDelete: Books): void {
-    if (confirm('Are you sure you want to delete this book?')) {
-      // Remove the book from the Empire array by filtering out the book
-      this.Empire = this.Empire.filter(book => book !== bookToDelete);
-
-      // Update localStorage with the new list of books
-      localStorage.setItem('book', JSON.stringify(this.Empire));  // Change 'books' to 'book'
-
-      alert('Book deleted successfully');
+  deleteBook(a: Books) {
+    if (confirm('are you want to delete?')) {
+      this.bookService.deleteBook(a.bookId).subscribe(() => {
+        this.saveBook();
+      });
     }
   }
-  addToCart(arg0: any) {
-    throw new Error('Method not implemented.');
-    }
-}
+//  courses: Course[] = [];
+
+//   constructor(private router: Router, private courseService: CourseService) {}
+
+//   ngOnInit(): void {
+//     this.courseService.getCourses().subscribe((data) => {
+//       this.courses = data;
+//     });
+//   }
+
+
+//   saveCourse() {
+//     this.courseService.getCourses().subscribe((data) => {
+//       this.courses = data;
+//     });
+//   }
+
+//   updateCourse(a: Course) {
+//     this.router.navigate(['/add-course'], { state: { a } });
+//   }
+
+//   deleteCourse(a: Course): void {
+//     if (a.id != null) {
+//       if (confirm('are you want to delete?')) {
+//         this.courseService.deleteCourse(a.id).subscribe(() => {
+//           this.saveCourse();
+//         });
+//       }
+//     } else {
+//       alert('Id is Invalid?');
+//     }
+//   }
+//   addNewCourse(): void {
+//     this.router.navigate(['/add-course'], { state: { course: new Course() } });
+ }

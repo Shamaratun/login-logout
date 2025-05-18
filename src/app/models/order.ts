@@ -13,9 +13,9 @@ export class Order {
   orderDate!: Date;              // or string if backend returns ISO string
   status!: string;
   totalAmount!: number;          // BigDecimal → number
-  user!: User;                   // or userID: number
-  discount!: Discount;           // or discountID: number
-  payment!: Payment;             // or paymentID: number
-  shipping!: Shipping;           // or shippingID: number
-  orderItems!: OrderItem[];      // list of items in the order
+  userId!: number;                   // or userID: number
+  discountId!: number;           // or discountID: number
+  paymentId!: number;             // or paymentID: number
+  shippingId!: number;           // or shippingID: number
+  orderItemsId!: number;      // list of items in the order
 }

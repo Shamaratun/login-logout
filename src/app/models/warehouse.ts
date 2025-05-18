@@ -1,12 +1,7 @@
 
-
 export class Warehouse {
-  warehouseId?: number;
-  location: string;
-  stockLevel: number;
+  warehouseId?: number=0;
+  location: string='';
+  stockLevel: number=0;
 
-  constructor() {
-    this.location = '';
-    this.stockLevel = 0;
-  }
 }

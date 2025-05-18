@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cart } from '../../models/cart';
 import { CartItem } from '../../models/cartItem';
+import { Books } from '../../models/book.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,10 @@ export class CartService {
 
   constructor(private http: HttpClient) {}
 
+
+  addToCart(book: Books): Observable<any> {
+    return this.http.post(`${this.apiUrl}/add`, book);
+  }
   // Get the cart for a specific user
   getCartByUserId(userId: number): Observable<Cart> {
     return this.http.get<Cart>(`${this.apiUrl}/user/${userId}`);
@@ -33,12 +38,12 @@ export class CartService {
   }
 
   // Add an item to the cart (or update the item quantity)
-  addItemToCart(cartId: number, cartItem: CartItem): Observable<Cart> {
+  addItem(cartId: number, cartItem: CartItem): Observable<Cart> {
     return this.http.post<Cart>(`${this.apiUrl}/${cartId}/items`, cartItem);
   }
 
   // Remove an item from the cart
-  removeItemFromCart(cartId: number, cartItemId: number): Observable<Cart> {
+  removeItem(cartId: number, cartItemId: number): Observable<Cart> {
     return this.http.delete<Cart>(`${this.apiUrl}/${cartId}/items/${cartItemId}`);
   }
 }

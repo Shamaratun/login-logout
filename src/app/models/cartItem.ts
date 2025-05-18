@@ -1,16 +1,12 @@
-import { Books } from "./book.model";
-import { Cart } from "./cart";
 
 
 
 export class CartItem {
-  cartItemID!: number;
-  quantity!: number;
-  cart!: Cart;      // or cartID: number; if only the ID is returned
-  book!: Books;      // or bookID: number; if only the ID is returned
-
- priceAtAddTime: number | undefined;
+  cartItemID: number=0;
+  quantity: number=0;
+  bookId: number=0;
+  cartId?: number=0;
+  priceAtAddTime?: number=0;
   addedAt?: string;
-// cartID!: number;
-// bookID!: number;
 }
+

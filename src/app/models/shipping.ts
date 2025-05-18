@@ -10,7 +10,7 @@ export class Shipping {
   deliveryMethod: string;
   estimatedDeliveryTime?: Date | string;
   shippingCost?: number;
-  order?: Order; // Optional to prevent circular dependency issues
+  orderId?: number=0; // Optional to prevent circular dependency issues
 
   constructor(
     name: string,
@@ -31,6 +31,6 @@ export class Shipping {
     this.deliveryMethod = deliveryMethod;
     this.estimatedDeliveryTime = estimatedDeliveryTime;
     this.shippingCost = shippingCost;
-    this.order = order;
+    this.orderId = this.orderId;
   }
 }

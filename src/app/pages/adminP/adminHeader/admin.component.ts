@@ -24,7 +24,7 @@ export class AdminComponent implements OnInit {
   }
 
   loadBooks() {
-    this.bookService.getBooks().subscribe({
+    this.bookService.getAllBooks().subscribe({
       next: (data) => {
         this.books = data;
       },

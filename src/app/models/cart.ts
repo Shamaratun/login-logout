@@ -3,9 +3,10 @@ import { User } from "./user";
 
 
 export class Cart {
-  cartID!: number;
-  createdDate!: Date;            // or string, depending on backend format
-  user!: User;                   // assuming a full user object is returned
-  items!: CartItem[];  
-  status:	String | undefined          // list of cart items
+  cartID: number=0;
+  cartItemsId: number=0;
+  createdDate: Date= new Date('');           
+  updatedDate: Date= new Date('');
+  status:	String | undefined  ;  
+        // list of cart items
 }

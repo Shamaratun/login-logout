@@ -61,21 +61,33 @@ getWarehouses(): void {
       error: (err) => console.error('Failed to load warehouses:', err)
     });
   }
-  loadBook(): void {
-    this.bookService.getAllBooks().subscribe(data => {
+ loadBook(): void {
+  this.bookService.getAllBooks().subscribe({
+    next: (data) => {
+      console.log('Fetched books:', data);
       this.books = data;
-    });
-  }
+    },
+    error: (err) => console.error('Failed to load books:', err)
+  });
+}
 
   loadAuthors(): void {
-    this.authorService.getAuthors().subscribe(data => {
+    this.authorService.getAuthors().subscribe({
+      next:data => {
+        console.log('Fetched authors:', data);
       this.authors = data;
+       },
+    error: (err) => console.error('Failed to load authors:', err)
     });
   }
 
   loadWarehouses(): void {
-    this.warehouseService.getWarehouses().subscribe(data => {
+    this.warehouseService.getWarehouses().subscribe({
+      next:data => {
+        console.log('Fetched warehouses:', data);
       this.warehouses = data;
+        },
+    error: (err) => console.error('Failed to load warehouses:', err)
     });
   }
 onSubmit(): void {
@@ -90,26 +102,29 @@ onSubmit(): void {
       });
     } else {
       this.bookService.createBook(this.book).subscribe({
-        next: () => {
+        next: () => {      
+          this.book = new Books(); // Reset the book object
           this.loadBook();
           this.resetForm();
-          alert('Author added successfully!');
+          alert('Book added successfully!');
         },
         error: (err) => console.error('Create failed:', err),
       });
     }
   }
 
-
-  editBook(book: Books): void {
-    this.book = { ...book };
-    this.isUpdate = true;
-  }
+editBook(book: Books): void {
+  this.book = { ...book };
+  this.currentEditId = book.bookId!;
+  this.isUpdate = true;
+}
 
  deleteBook(book: Books): void {
     if (book.bookId != null && confirm('Are you sure you want to delete this book?')) {
       this.bookService.deleteBook(book.bookId).subscribe({
         next: () => {
+          console.log('Book deleted:', book);
+          this.books = this.books.filter(b => b.bookId !== book.bookId);
           this.loadBook();
           alert('Book deleted successfully!');
         },
@@ -117,11 +132,11 @@ onSubmit(): void {
       });
     }
   }
-  resetForm(): void {
-    this.book = new Books();
-    this.isUpdate = false;
-    this.currentEditId = null;
-  }
+resetForm(): void {
+  this.book = new Books();
+  this.isUpdate = false;
+  this.currentEditId = null;
+}
 
   trackById(index: number, book: Books): number {
     return book.bookId!;

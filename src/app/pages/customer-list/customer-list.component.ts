@@ -3,6 +3,7 @@ import { UserService } from '../../core/service/user.service';
 
 import { NgFor } from '@angular/common';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-list',
@@ -10,78 +11,44 @@ import { User } from '../../models/user';
   templateUrl: './customer-list.component.html',
 })
 export class CustomerListComponent implements OnInit {
+  trackById(index: number, users: User): number {
+      return users.id!;
+    }
   users: User[] = [];
-  user: User = new User();
-  isUpdate: boolean = false;
-  currentEditId: number | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.saveUser();
+  }
 
-    this.userService.getUsers().subscribe(users => {
-      this.users = users;
+
+  saveUser() {
+    this.userService.getUsers().subscribe((data) => {
+      this.users = data;
     });
   }
 
-  loadUsers(): void {
-    this.userService.getUsers().subscribe({
-      next: (data) => {
-        this.users = data;
-        console.log('Loaded users:', this.users); // Optional for debugging
-      },
-      error: (err) => console.error('Error loading users:', err),
-    });
+  updateUser(a: User) {
+    this.router.navigate(['/registration'], { state: { a } });
   }
 
-  onSubmit(): void {
-    if (this.isUpdate && this.currentEditId !== null) {
-      this.userService.updateUser(this.currentEditId, this.user).subscribe({
-        next: () => {
-          this.loadUsers();
-          this.resetForm();
-          alert('User updated successfully!');
-        },
-        error: (err) => console.error('Update failed:', err),
-      });
+  deleteUser(a: User): void {
+    if (a.id != null) {
+      if (confirm('are you want to delete?')) {
+        this.userService.deleteUser(a.id).subscribe(() => {
+          this.saveUser();
+        });
+      }
     } else {
-      this.userService.registerUser(this.user).subscribe({
-        next: () => {
-          this.loadUsers();
-          this.resetForm();
-          alert('User registered successfully!');
-        },
-        error: (err) => console.error('Registration failed:', err),
-      });
+      alert('Id is Invalid?');
     }
   }
 
-  editUser(user: User): void {
-    this.user = { ...user }; // Copy the selected user for editing
-    this.currentEditId = user.id!; // Use the correct field for ID
-    this.isUpdate = true;
-  }
 
-  deleteUser(user: User): void {
-    if (user.id != null && confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(user.id).subscribe({
-        next: () => {
-          this.loadUsers();
-          alert('User deleted successfully!');
-        },
-        error: (err) => console.error('Delete failed:', err),
-      });
-    }
-  }
 
-  resetForm(): void {
-    this.user = new User(); // Reset the form to initial state
-    this.isUpdate = false;
-    this.currentEditId = null;
+  addNewUser(): void {
+    this.router.navigate(['/registration'], { state: { users: new User() } });
   }
-
-  trackByUserId(index: number, user: User): number {
-    return user.id!; // Track by the 'id' field
-  }
+   
 }

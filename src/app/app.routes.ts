@@ -8,7 +8,7 @@ import { AdminViewComponent } from './pages/admin-view/admin-view.component';
 import { CommonViewComponent } from './pages/common-view/common-view.component';
 import { HeaderComponent } from './pages/header/header.component';
 
-import { BookListComponent } from './pages/book/booklist/booklist.component';
+import { BooklistComponent } from './pages/book/booklist/booklist.component';
 import { BookCRUDComponent } from './pages/book/book-crud/book-crud.component';
 import { BookItemsComponent } from './pages/book/book-items/book-items.component';
 import { CartComponent } from './pages/cart/cart.component';
@@ -47,7 +47,7 @@ export const routes: Routes = [{
 //     component: HeaderComponent,
 //     canActivate: [authGuard],
 //     children: [
-{ path: 'booklist', component: BookListComponent },  // Path for the BookList component
+{ path: 'booklist', component: BooklistComponent },  // Path for the BookList component
 { path: 'bookCRUD', component: BookCRUDComponent },  // Path for the BookCRUD component
 { path: 'customer-list', component: CustomerListComponent },
 { path: 'customer-list', component: CustomerViewComponent },
@@ -76,7 +76,7 @@ export const routes: Routes = [{
 { path: 'author-list', component: AuthorListComponent },
 { path: 'book-crud', component: BookCRUDComponent },
 
-{path  :'offer', component: OfferComponent},
+{path  :'available-books', component: AvailableBooksComponent},
 {path :'discount', component: DiscountComponent},
 {path :'book-details', component: BookDetailsComponent},
 { path: '**', redirectTo: 'home' },

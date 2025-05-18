@@ -12,7 +12,16 @@
           <input type="text" id="title" [(ngModel)]="book.title" name="title" required class="form-control"
             placeholder="Enter book title" />
         </div>
-
+ <!-- Author -->
+        <div class="mb-3">
+          <label for="author" class="form-label">Author Name:</label>
+          <select id="author"  [(ngModel)]="book.authorName" name="author" required class="form-select">
+            <option value="" disabled selected>Select author</option>
+            <option *ngFor="let author of authors" [value]="book.authorName">
+    {{ author.name }} </option>
+ 
+          </select>
+        </div>
         <!-- ISBN -->
         <div class="mb-3">
           <label for="isbn" class="form-label">ISBN:</label>
@@ -27,16 +36,7 @@
             placeholder="Enter price" min="0" />
         </div>
 
-        <!-- Stock -->
-        <div class="mb-3">
-          <label for="stock" class="form-label">Stock:</label>
-            <select name="stock"  required style="width: 100%;">
-   
-       <option *ngFor="let warehouse of warehouses" [value]="warehouse.warehouseId">
-    {{ warehouse.stockLevel }}
-    </option>
-  </select><br />
-        </div>
+      
   
         <!-- Image -->
         <div class="mb-3">
@@ -61,27 +61,27 @@
             placeholder="Enter rating (1–5)" min="1" max="5" />
         </div>
 
-        <!-- Author -->
-        <div class="mb-3">
-          <label for="author" class="form-label">Author:</label>
-          <select id="author"  [(ngModel)]="book.authorId" name="author" required class="form-select">
-            <option value="" disabled selected>Select author</option>
-            <option *ngFor="let author of authors" [value]="author.authorId">
-    {{ author.name }}
-  </option>
-          </select>
-        </div>
+       
 
         <!-- Warehouse -->
         <div class="mb-3">
           <label for="warehouse" class="form-label">Warehouse:</label>
-          <select id="warehouse" [(ngModel)]="book.warehouseId"name="warehouse" required class="form-select">
+          <select id="warehouse" [(ngModel)]="book.warehouseLocation" name="warehouse" required class="form-select">
             <option value="" disabled selected>Select warehouse</option>
-           <option *ngFor="let warehouse of warehouses" [value]="warehouse.warehouseId">
-    {{ warehouse.location }}
+           <option *ngFor="let warehouse of warehouses" [value]="warehouse.warehouseId"> {{ warehouse.warehouseId }},
+    {{ warehouse.location }} </option>
           </select>
         </div>
-
+  <!-- Stock -->
+        <div class="mb-3">
+          <label for="stock" class="form-label">Stock:</label>
+            <select name="stock"  required style="width: 100%;">
+   
+       <option *ngFor="let warehouse of warehouses" [value]="warehouse.warehouseId">
+    {{ warehouse.stockLevel }}
+    </option>
+  </select><br />
+        </div>
         <!-- Submit -->
         <div class="d-grid">
           <button type="submit" class="btn btn-primary">
@@ -101,14 +101,14 @@
       <tr>
         <th>#</th>
         <th>Title</th>
+         <th>Author</th>
         <th>ISBN</th>
         <th>Price</th>
-        <th>Stock</th>
         <th>Image</th>
         <th>Genre</th>
         <th>Rating</th>
-        <th>Author</th>
         <th>Warehouse</th>
+        <th>Stock</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -116,16 +116,17 @@
       <tr *ngFor="let book of books; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ book.title }}</td>
+        <td>{{ book.authorName }}</td>
         <td>{{ book.isbn }}</td>
         <td>{{ book.price }}</td>
-        <td>{{ book.stock }}</td>
+      
         <td>
           <img [src]="book.image" alt="{{ book.title }}" width="50" height="60" class="rounded" *ngIf="book.image" />
         </td>
         <td>{{ book.genre }}</td>
         <td>{{ book.rating }}/5</td>
-        <td>{{ book.authorId }}</td>
-        <td>{{ book.warehouseId }}</td>
+        <td>{{ book.warehouseLocation }}</td>
+          <td>{{ book.stock }}</td>
         <td>
           <button class="btn btn-sm btn-primary me-2" (click)="editBook(book)">Edit</button>
           <button class="btn btn-sm btn-danger" (click)="deleteBook(book)">Delete</button>
@@ -134,3 +135,5 @@
     </tbody>
   </table>
 </div>
+<ul>
+  

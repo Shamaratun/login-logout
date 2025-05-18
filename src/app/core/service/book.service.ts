@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Books } from '../../models/book.model';
+import { Author } from '../../models/author';
 
 
 
@@ -14,37 +15,27 @@ export class BookService {
 
   constructor(private http: HttpClient) {}
 
-  getBooks(): Observable<Books[]> {
+  getAllBooks(): Observable<Books[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(
       map((data) =>
         data.map((item) => {
-          const book: Books = {
-  bookId: item.bookId,
-  title: item.title,
-  isbn: item.isbn,
-  price: item.price,
-  stock: item.stock,
-  image: item.image,
-  genre: item.genre,
-  rating: item.rating,
-  createdAt: item.createdAt,
-  updatedAt: item.updatedAt,
-  author: {
-    authorId: item.author?.authorId,
-    name: item.author?.name,
-    bio: item.author?.bio,
-    country: item.author?.country,
-    dob: item.author?.dob,
-    books: item.author?.books,
-  },
-  warehouse: {
-    warehouseId: item.warehouse?.warehouseId,
-    
-    location: item.warehouse?.location,
-    stockLevel: 0
-  },
-  reviews: item.reviews || [],
-};
+          const book = new Books();
+          book.bookId = item.bookId;
+          book.title = item.title;
+          book.isbn = item.isbn;
+          book.price = item.price;
+          book.stock = item.stock;
+          book.image = item.image;
+          book.genre = item.genre;
+          book.rating = item.rating;
+          book.authorId = item.authorId;
+          book.warehouseId = item.warehouseId;
+          book.createdAt = item.createdAt;
+          book.updatedAt = item.updatedAt;
+          
+          // Explicitly map all book fields
+          // book.bookId = item.bookId;
+          // book.title = item.title;
           return book;
         })
       ),
@@ -53,10 +44,23 @@ export class BookService {
   }
 
   createBook(book: Books): Observable<Books> {
-    return this.http.post<Books>(this.apiUrl, book, {
+    const payload = {
+      bookId: book.bookId,  // Use correct keys as backend expects
+      title: book.title,
+      isbn: book.isbn,
+      price: book.price,
+      stock: book.stock,
+      image: book.image,
+      genre: book.genre,
+      rating: book.rating,
+      authorId: book.authorId, 
+      warehouseId: book.warehouseId
+    };
+  return this.http.post<Books>(this.apiUrl, payload, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     }).pipe(catchError(this.handleError));
   }
+
 
   updateBook(bookId: number, book: Books): Observable<Books> {
     return this.http.put<Books>(`${this.apiUrl}/${bookId}`, book, {
@@ -69,7 +73,14 @@ export class BookService {
       catchError(this.handleError)
     );
   }
-
+  getAvailableBooks(): Observable<Books[]> {
+    return this.http.get<Books[]>(this.apiUrl);
+  }
+  getBookById(bookId: number): Observable<Books> {
+    return this.http.get<Books>(`${this.apiUrl}/${bookId}`).pipe(
+      catchError(this.handleError)
+    );
+  }
   private handleError(error: any): Observable<never> {
     let errorMessage = 'An error occurred';
     if (error.error instanceof ErrorEvent) {

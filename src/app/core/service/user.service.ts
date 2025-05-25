@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { RegisterRequest, UserResponse } from '../../models/user';
+import { RegisterRequest, User, UserResponse } from '../../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,8 @@ export class UserService {
             nid: u.nid,
             phoneNumber: u.phoneNumber,
             fullName: u.fullName,
-            username: u.username,createdAt: u.createdAt,
+            username: u.username,
+            createdAt: u.createdAt,
             updatedAt: u.updatedAt
           };
           return user;
@@ -48,9 +49,17 @@ export class UserService {
     );
   }
 
+    getUserByRole(role: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/role`, {
+      params: { role }
+    });
+  }
+
+
   /**
    * Updates a user by ID.
-   */
+  //  updateUserByEmail(email: string, user: Partial<RegisterRequest>): Observable<UserResponse> {
+  //   const url = `${this.apiUrl}/email/${email}`;*/
   updateUser(id: number, user: Partial<RegisterRequest>): Observable<UserResponse> {
     const url = `${this.apiUrl}/${id}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

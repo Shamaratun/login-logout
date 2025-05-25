@@ -1,0 +1,10 @@
+  .bg-image { 
+  /* background-image: url('https://img.freepik.com/free-photo/realistic-scene-neighborhood-yard-sale-with-miscellaneous-items_23-2151238233.jpg?ga=GA1.1.2140115462.1747283281&semt=ais_hybrid&w=740');
+  background-size: cover; */
+
+   background-color: rgb(145, 165, 173);
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; 
+  
+}

@@ -21,7 +21,7 @@ export class LoginViewComponent {
         next: (res) => {
           console.log(res);
           this.auth.setToken(res.access_token);
-          this.router.navigate(['/header']);
+          this.router.navigate([]);
         },
         error: (error) => {
           alert(error.error.message);

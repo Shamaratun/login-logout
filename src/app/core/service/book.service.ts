@@ -21,24 +21,23 @@ export class BookService {
         data.map((item) => {
           const book = new Books();
           book.bookId = item.bookId;
+          book.authorName = item.authorName;
           book.title = item.title;
           book.isbn = item.isbn;
           book.price = item.price;
           book.stock = item.stock;
           book.image = item.image;
+          book.image = item.image;
           book.genre = item.genre;
           book.rating = item.rating;
-          book.authorId = item.authorId;
-          book.warehouseId = item.warehouseId;
           book.createdAt = item.createdAt;
           book.updatedAt = item.updatedAt;
           
-          // Explicitly map all book fields
-          // book.bookId = item.bookId;
-          // book.title = item.title;
+        
           return book;
         })
       ),
+      
       catchError(this.handleError)
     );
   }
@@ -47,14 +46,14 @@ export class BookService {
     const payload = {
       bookId: book.bookId,  // Use correct keys as backend expects
       title: book.title,
+      authorName: book.authorName,
       isbn: book.isbn,
-      price: book.price,
-      stock: book.stock,
+      price: book.price,     
       image: book.image,
       genre: book.genre,
       rating: book.rating,
-      authorId: book.authorId, 
-      warehouseId: book.warehouseId
+       warehouseLocation: book.warehouseLocation,
+       stock: book.stock,
     };
   return this.http.post<Books>(this.apiUrl, payload, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

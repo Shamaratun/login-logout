@@ -1,63 +1,96 @@
-<div id="shipping-address-cart-page">
-
-  <!-- Checkout Summary -->
-  <div class="item">
-    <div class="shipping-header">
-      <h4 class="title">Checkout Summary</h4>
-    </div>
-    <div class="checkout">
-      <p class="checkout__item">Subtotal <span>{{ subtotal }} TK.</span></p>
-
-      <p class="checkout__item" *ngIf="discount > 0">
-        Discount <span class="text-danger">-{{ discount }} TK.</span>
-      </p>
-
-      <p class="checkout__item">Online Fee <span>{{ shippingCharge }} TK.</span></p>
-
-      <p class="checkout__item" *ngIf="starDiscount > 0">
-        Star Discount <span class="text-danger">-{{ starDiscount }} TK.</span>
-      </p>
-
-      <p class="checkout__item">Total <span>{{ grandTotal }} TK.</span></p>
-
-      
-      <p class="checkout__item font-weight-bold">
-        Payable Total <span>{{ payableTotal }} TK.</span>
-      </p>
-    </div>
-
-    
-  <!-- Buttons -->
-  <div class="gift-in-checkout-summary" id="js-shipping">
-    <p class="text-danger pb-2" *ngIf="requireMessage">{{ requireMessage }}</p>
-
-    <div class="align-items-center">
-      <a
-        class="btn gift-btn"
-        (click)="continueToGift()"
-        style="cursor: pointer;"
-      >
-        উপহার হিসেবে অর্ডার করুন
-      </a>
-
-      <a
-        class="btn cart-btn-new checkoutsummary-btn shipping-btn"
-        (click)="continueToShipping()"
-        style="cursor: pointer;"
-      >
-        <span>
-          Proceed to Checkout
-          <img
-            src="/static/200/images/svg/icons/rok-icon-arrow-right.svg"
-            class="icon-arrow-right-animation"
-            alt="arrow right"
-          />
-        </span>
-      </a>
-    </div>
-
-    <p class="text-secondary">
-      Apply <b>Promo Code or Voucher Code</b> on the Shipping Page
-    </p>
-  </div>
+<div class="card p-3">
+    <form (ngSubmit)="onSubmit()">
+      <!-- Customer Info -->
+      <div class="row mb-3">
+        <div class="col-md-6 mb-2 mb-md-0">
+          <label class="form-label"><b>Customer Name:</b></label>
+          <input formControlName="customerName" class="form-control" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label"><b>Contact Number:</b></label>
+          <input formControlName="contactNumber" class="form-control" />
+        </div>
 </div>
+
+      <!-- Book Items -->
+      <div class="mt-2" formArrayName="items">
+        <div *ngFor="let item of items.controls; let i = index"class="row g-2 mb-3 align-items-end">
+          <!-- Book Title -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <label for="bookTitle{{ i }}" class="form-label">Book Title</label>
+            <select id="bookTitle{{ i }}" formControlName="bookTitle" (change)="onBookChange(i)" class="form-select form-select-sm">
+              <option value="">--Select Book--</option>
+              <option *ngFor="let book of bookInventory" [value]="book.title">{{ book.title }}</option>
+            </select>
+          </div>
+
+          <!-- Edition -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+            <label for="edition{{ i }}" class="form-label">Edition</label>
+            <select id="edition{{ i }}" formControlName="edition" (change)="onBookChange(i)" class="form-select form-select-sm">
+              <option value="">--Select Edition--</option>
+              <option *ngFor="let ed of getEditionOptions(i)" [value]="ed">{{ ed }}</option>
+            </select>
+          </div>
+
+          <!-- Price -->
+          <div class="col-12 col-sm-4 col-md-2 col-lg-2">
+            <label class="form-label">Unit Price</label>
+            <div class="form-control-plaintext">{{ item.get('unitPrice')?.value }}</div>
+          </div>
+
+          <!-- Quantity -->
+          <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="form-label">Quantity</label>
+            <input type="number" formControlName="quantity" (input)="calculateRowSubTotal(i)" class="form-control form-control-sm" />
+          </div>
+
+          <!-- Subtotal -->
+          <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="form-label">Sub-Total</label>
+            <input formControlName="subTotal" readonly class="form-control form-control-sm bg-light" />
+          </div>
+
+          <!-- Actions -->
+          <div class="col-12 col-md-2 d-flex gap-2">
+            <button type="button" (click)="removeItem(i)" class="btn btn-outline-danger btn-sm flex-grow-1">Remove</button>
+            <button *ngIf="i === items.length - 1" type="button" (click)="addItem()" class="btn btn-outline-primary btn-sm flex-grow-1">Add More</button>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- Totals -->
+      <div class="row justify-content-end">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="mb-3">
+            <label class="form-label">Amount</label>
+            <input formControlName="amount" readonly class="form-control form-control-sm bg-light" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Discount %</label>
+            <div class="input-group">
+              <input type="number" formControlName="discount" (input)="calculateTotals()" class="form-control form-control-sm" />
+              <span class="input-group-text">%</span>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Discount Amount</label>
+            <input formControlName="discountAmount" readonly class="form-control form-control-sm bg-light" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Net Payable</label>
+            <input formControlName="netPayable" readonly class="form-control form-control-sm bg-light" />
+          </div>
+
+          <div class="d-flex justify-content-end mt-2">
+            <button type="submit" class="btn btn-primary px-4">Submit Invoice</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>

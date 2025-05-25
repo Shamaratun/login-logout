@@ -1,7 +1,5 @@
-import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BookItemsComponent } from '../../book/book-items/book-items.component';
 import { Books } from '../../../models/book.model';
 import { BookService } from '../../../core/service/book.service';
 

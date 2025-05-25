@@ -13,7 +13,19 @@ export class HeaderComponent {
    constructor(private auth: AuthService) {
       this.role = auth.getUserRole();
     }
+// logout() {
+//     this.auth.logout();
+//   }
+
+isLoggedIn = false;
+
+login() {
+  // logic for logging in
+  console.log('Logging in');
+}
+
 logout() {
-    this.auth.logout();
-  }
+  // logic for logging out
+  console.log('Logging out');
+}
 }

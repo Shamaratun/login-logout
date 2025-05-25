@@ -1,56 +1,84 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../../../core/service/cart.service';
 import { BookService } from '../../../core/service/book.service';
-import { NgFor } from '@angular/common';
 import { Books } from '../../../models/book.model';
-import { CartItem } from '../../../models/cartItem';
-import { Author } from '../../../models/author';
-import { CartItemService } from '../../../core/service/cartItem.service';
-import { AuthorService } from '../../../core/service/author.service';
-
-
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-book-list',
+  standalone: true,
   imports: [NgFor],
   templateUrl: './available-books.component.html',
-  styleUrls: ['./available-books.component.css']
+  styleUrls: ['./available-books.component.css'],
 })
 export class AvailableBooksComponent implements OnInit {
   books: Books[] = [];
-author: Author[] = [];
-cartItem: CartItem[] = [];
- 
+  cartItems: any[] = [];
+  totalPrice: number = 0;
 
-  constructor(private cartService: CartService,private  cartItemService: CartItemService,
-    private authorService: AuthorService
-    , private bookService: BookService) {}
+  constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
     this.loadBook();
+    this.loadCart();
+    this.calculateTotalPrice();
   }
 
-   loadBook(): void {
-  this.bookService.getAllBooks().subscribe({
-    next: (data) => {
-      console.log('Fetched books:', data);
-      this.books = data;
-    },
-    error: (err) => console.error('Failed to load books:', err)
-  });
-}
-
-  addToCart(book: Books): void {
-    this.cartService.addToCart(book).subscribe({
-      next: (res) => {
-        console.log('Added to cart:', res);
-        // Optional: show toast or message
+  loadBook(): void {
+    this.bookService.getAllBooks().subscribe({
+      next: (data) => {
+        console.log('Fetched books:', data);
+        this.books = data;
       },
-      error: (err) => {
-        console.error('Add to cart failed:', err);
-      }
+      error: (err) => console.error('Failed to load books:', err),
     });
   }
+
+  loadCart(): void {
+    const savedCart = localStorage.getItem('cart');
+    this.cartItems = savedCart ? JSON.parse(savedCart) : [];
+  }
+
+  saveCart(): void {
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
+  }
+
+  addToCart(book: Books): void {
+    const existingItem = this.cartItems.find(item => item.book?.bookId === book.bookId);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      const newItem = {
+        cartItemID: Date.now(), // unique ID
+        book: {
+          bookId: book.bookId,
+          title: book.title,
+          author: {
+            name: book.authorName
+          }
+        },
+        quantity: 1,
+        priceAt: book.price
+      };
+      this.cartItems.push(newItem);
+    }
+
+    this.saveCart();
+    this.calculateTotalPrice();
+    console.log('Cart updated:', this.cartItems);
+    alert(`${book.title} added to cart`);
+  }
+
+  removeFromCart(bookId: number): void {
+    this.cartItems = this.cartItems.filter(item => item.book?.bookId !== bookId);
+    this.saveCart();
+    this.calculateTotalPrice();
+  }
+
+  calculateTotalPrice(): void {
+    this.totalPrice = this.cartItems.reduce(
+      (sum, item) => sum + item.quantity * item.priceAt,
+      0
+    );
+  }
 }
- 
-    

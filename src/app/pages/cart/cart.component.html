@@ -7,7 +7,7 @@
     <input
       type="text"
       id="customerName"
-      [(ngModel)]="order.customerName"
+      [(ngModel)]="customerName"
       name="customerName"
       required
       class="form-control"
@@ -31,8 +31,8 @@
     <tbody>
       <tr *ngFor="let item of carts; let i = index">
         <td>{{ i + 1 }}</td>
-        <td>{{ item.book?.title }}</td>
-        <td>{{ item.book?.author?.name }}</td>
+        <td>{{ item.book.title }}</td>
+        <td>{{ item.book.author.name }}</td>
         <td>{{ item.quantity }}</td>
         <td>{{ item.priceAt }} BDT</td>
         <td>{{ item.quantity * item.priceAt }} BDT</td>
@@ -57,7 +57,7 @@
 
   <!-- Checkout Button -->
   <div *ngIf="carts.length > 0" class="mt-4">
-    <button (click)="purchase()" class="btn btn-success">
+    <button (click)="checkout()" class="btn btn-success">
       Proceed to Checkout
     </button>
   </div>

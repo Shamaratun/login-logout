@@ -1,78 +1,68 @@
 import { Component, OnInit } from '@angular/core';
-import { CartItem } from '../../models/cartItem';
-import { CartService } from '../../core/service/cart.service';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CartItemService } from '../../core/service/cartItem.service';
-import { BookService } from '../../core/service/book.service';
-import { Books } from '../../models/book.model';
 
-
+// Models
+import { CartItem } from '../../models/cartItem';
 
 @Component({
   selector: 'app-cart',
-  imports: [NgIf, FormsModule,NgFor ],
   standalone: true,
+  imports: [NgIf, NgFor, FormsModule],
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css'],
+  styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-
-  orders: Order[] = [];
-  carts: Writer[] = [];
+  carts: CartItem[] = [];
   totalPrice: number = 0;
-  order: Order = new Order('', [], 0);  // Initialized with empty values
+  customerName: string = '';
 
   ngOnInit(): void {
-    // Retrieve cart data from localStorage and parse it
-    const allCarts = JSON.parse(localStorage.getItem('cart') || '[]');
-    
-    // Ensure the parsed data is an array and assign it to the carts array
-    this.carts = Array.isArray(allCarts) ? allCarts : [];
-
-    // Calculate the total price using reduce
+    this.loadCart();
     this.calculateTotalPrice();
-
-    // Retrieve orders data from localStorage
-    const allOrders = JSON.parse(localStorage.getItem('orders') || '[]');
-    this.orders = Array.isArray(allOrders) ? allOrders : [];
   }
 
-  // Method to calculate the total price
-  private calculateTotalPrice(): void {
-    this.totalPrice = this.carts.reduce((accumulator, currentValue) => {
-      return accumulator + (currentValue.price || 0);
+  loadCart(): void {
+    const storedCart = localStorage.getItem('cart');
+    this.carts = storedCart ? JSON.parse(storedCart) : [];
+  }
+
+  calculateTotalPrice(): void {
+    this.totalPrice = this.carts.reduce((sum, item) => {
+      return sum + (item.priceAt * item.quantity);
     }, 0);
   }
 
-  // Method to purchase the cart
-  purchase(): void {
-    // Save orders to localStorage
-    this.order.writer = this.carts;
-    this.order.total = this.totalPrice;
-    this.orders.push(this.order);
-    localStorage.setItem('orders', JSON.stringify(this.orders));
-
-    // Clear the cart and update localStorage
-    this.carts = [];
+  removeFromCart(cartItemID: number): void {
+    this.carts = this.carts.filter(item => item.cartItemID !== cartItemID);
     localStorage.setItem('cart', JSON.stringify(this.carts));
-
-    // Reset the total price
-    this.totalPrice = 0;
-
-    // Create a new order (this can be modified to reflect user details, etc.)
-    this.order = new Order('', this.carts, this.totalPrice);
-
-    // Alert the user that the purchase was successful
-    alert('Purchase successfully completed!');
+    this.calculateTotalPrice();
   }
 
-  // Method to remove an item from the cart
-  removeFromCart(index: number): void {
-    this.carts.splice(index, 1);  // Remove item by index
-    localStorage.setItem('cart', JSON.stringify(this.carts));  // Update localStorage
+  checkout(): void {
+    if (!this.customerName.trim()) {
+      alert('Please enter your name before checking out.');
+      return;
+    }
 
-    // Recalculate the total price
-    this.calculateTotalPrice();
+    const summary = {
+      customer: this.customerName,
+      purchasedItems: this.carts,
+      totalAmount: this.totalPrice,
+      timestamp: new Date().toISOString()
+    };
+
+    // Save in localStorage for reference (optional)
+    const previous = JSON.parse(localStorage.getItem('checkoutHistory') || '[]');
+    previous.push(summary);
+    localStorage.setItem('checkoutHistory', JSON.stringify(previous));
+
+    // Clear cart
+    this.carts = [];
+    this.totalPrice = 0;
+    localStorage.setItem('cart', JSON.stringify(this.carts));
+    this.customerName = '';
+
+    alert('Purchase successful!');
   }
 }

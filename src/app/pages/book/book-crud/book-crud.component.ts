@@ -22,11 +22,11 @@ export class BookCRUDComponent implements OnInit {
 
   books: Books[] = [];
   book: Books = new Books();
-
-  authors: Author[] = [];
-  warehouses: Warehouse[] = [];
+  authors:string[]=['Alvi Ahmed','Sadat Hossain','Pawlo Kohalho','shahid al bukhari mohajatak','Shirshendu Mukhopadday','Kazi Nazrul Islam'];
+  stocks:string[]=['12','90','100','200','300','400','500','600'];
+  warehouses:string []=['Jashoreport12','dhaka 34', 'Khulna 45', 'Barisal 23', 'Chattogram 12', 'Sylhet 34', 'Rajshahi 45', 'Rangpur 23'];  
  userRole = '';
-  genres: string[] = ['Fiction', 'Non-Fiction', 'Sci-Fi', 'Biography', 'History', 'Fantasy'];
+  genres: string[] = ['Novel','Fiction','Text Book','Islami Books', 'Non-Fiction', 'Sci-Fi', 'Biography', 'History', 'Fantasy'];
 currentEditId: number | null = null;
   isUpdate: boolean = false;
 
@@ -34,34 +34,14 @@ currentEditId: number | null = null;
     
     private auth: AuthService,
     private bookService: BookService,
-    private authorService: AuthorService,
-    private warehouseService: WarehouseService
+   
   ) {}
 ngOnInit(): void {
-    this.loadBook(),
-      this.userRole = this.auth.getUserRole(),
-      this.getAuthors(),
-      this.getWarehouses();
+    this.loadBooks();
+      
 }
- getAuthors(): void {
-    this.authorService.getAuthors().subscribe({
-      next: (data) => {
-        this.authors = data;
-        console.log('Authors:', this.authors);
-      },
-      error: (err) => console.error('Failed to load authors:', err)
-    });
-  }
-getWarehouses(): void {
-    this.warehouseService.getWarehouses().subscribe({
-      next: (data) => {
-        this.warehouses = data;
-        console.log('Warehouses:', this.warehouses);
-      },
-      error: (err) => console.error('Failed to load warehouses:', err)
-    });
-  }
- loadBook(): void {
+
+ loadBooks(): void {
   this.bookService.getAllBooks().subscribe({
     next: (data) => {
       console.log('Fetched books:', data);
@@ -71,32 +51,16 @@ getWarehouses(): void {
   });
 }
 
-  loadAuthors(): void {
-    this.authorService.getAuthors().subscribe({
-      next:data => {
-        console.log('Fetched authors:', data);
-      this.authors = data;
-       },
-    error: (err) => console.error('Failed to load authors:', err)
-    });
-  }
+  
 
-  loadWarehouses(): void {
-    this.warehouseService.getWarehouses().subscribe({
-      next:data => {
-        console.log('Fetched warehouses:', data);
-      this.warehouses = data;
-        },
-    error: (err) => console.error('Failed to load warehouses:', err)
-    });
-  }
 onSubmit(): void {
+    console.log('Submitting book:', this.book);
     if (this.isUpdate && this.currentEditId !== null) {
       this.bookService.updateBook(this.currentEditId, this.book).subscribe({
         next: () => {
-          this.loadBook();
+          this.loadBooks();
           this.resetForm();
-          alert('Author updated successfully!');
+          alert('Bookupdated successfully!');
         },
         error: (err) => console.error('Update failed:', err),
       });
@@ -104,7 +68,7 @@ onSubmit(): void {
       this.bookService.createBook(this.book).subscribe({
         next: () => {      
           this.book = new Books(); // Reset the book object
-          this.loadBook();
+          this.loadBooks();
           this.resetForm();
           alert('Book added successfully!');
         },
@@ -125,7 +89,7 @@ editBook(book: Books): void {
         next: () => {
           console.log('Book deleted:', book);
           this.books = this.books.filter(b => b.bookId !== book.bookId);
-          this.loadBook();
+          this.loadBooks();
           alert('Book deleted successfully!');
         },
         error: (err) => console.error('Delete failed:', err),

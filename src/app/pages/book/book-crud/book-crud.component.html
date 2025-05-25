@@ -6,21 +6,21 @@
 
     <div class="container shadow-lg p-4 bg-white rounded">
       <form (ngSubmit)="onSubmit()">
-        <!-- Title -->
+        <!-- Title [(ngModel)]="book.title"-->
         <div class="mb-3">
           <label for="title" class="form-label">Title:</label>
           <input type="text" id="title" [(ngModel)]="book.title" name="title" required class="form-control"
             placeholder="Enter book title" />
         </div>
- <!-- Author -->
+ <!-- Author [(ngModel)]="book.authorName"-->
         <div class="mb-3">
-          <label for="author" class="form-label">Author Name:</label>
           <select id="author"  [(ngModel)]="book.authorName" name="author" required class="form-select">
             <option value="" disabled selected>Select author</option>
-            <option *ngFor="let author of authors" [value]="book.authorName">
-    {{ author.name }} </option>
+            <option *ngFor="let authorName of authors" [value]="authorName">
+    {{ authorName }} </option> </select>
+        
  
-          </select>
+          
         </div>
         <!-- ISBN -->
         <div class="mb-3">
@@ -65,22 +65,22 @@
 
         <!-- Warehouse -->
         <div class="mb-3">
-          <label for="warehouse" class="form-label">Warehouse:</label>
-          <select id="warehouse" [(ngModel)]="book.warehouseLocation" name="warehouse" required class="form-select">
+          <!-- <label for="warehouse" class="form-label">Warehouse:</label> -->
+          <select id="warehouse"  [(ngModel)]="book.warehouseLocation" name="warehouse" required class="form-select">
             <option value="" disabled selected>Select warehouse</option>
-           <option *ngFor="let warehouse of warehouses" [value]="warehouse.warehouseId"> {{ warehouse.warehouseId }},
-    {{ warehouse.location }} </option>
+           <option *ngFor="let warehouse of warehouses" [value]="warehouse" >  {{ warehouse}} </option>
           </select>
         </div>
   <!-- Stock -->
         <div class="mb-3">
-          <label for="stock" class="form-label">Stock:</label>
-            <select name="stock"  required style="width: 100%;">
-   
-       <option *ngFor="let warehouse of warehouses" [value]="warehouse.warehouseId">
-    {{ warehouse.stockLevel }}
+        <!-- <label for="stock" class="form-label">Stock:</label> -->
+          <select id="stock" [(ngModel)]="book.genre" name="genre" required class="form-select">
+            <option value="" disabled selected>Select stock</option>
+           <option *ngFor="let s of stocks" [value]="s">
+    {{ s }} 
     </option>
   </select><br />
+       
         </div>
         <!-- Submit -->
         <div class="d-grid">
@@ -107,8 +107,8 @@
         <th>Image</th>
         <th>Genre</th>
         <th>Rating</th>
-        <th>Warehouse</th>
-        <th>Stock</th>
+        <!-- <th>Warehouse</th>
+        <th>Stock</th> -->
         <th>Actions</th>
       </tr>
     </thead>
@@ -125,8 +125,8 @@
         </td>
         <td>{{ book.genre }}</td>
         <td>{{ book.rating }}/5</td>
-        <td>{{ book.warehouseLocation }}</td>
-          <td>{{ book.stock }}</td>
+        <!-- <td>{{ book.warehouseLocation }}</td>
+          <td>{{ book.stock }}</td> -->
         <td>
           <button class="btn btn-sm btn-primary me-2" (click)="editBook(book)">Edit</button>
           <button class="btn btn-sm btn-danger" (click)="deleteBook(book)">Delete</button>
@@ -135,5 +135,3 @@
     </tbody>
   </table>
 </div>
-<ul>
-  

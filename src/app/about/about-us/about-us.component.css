@@ -1,7 +1,7 @@
 /* General Reset */
-* {
+* .main{
   margin: 0;
-  padding: 0;
+  padding:top-60px;
   box-sizing: border-box;
 }
 

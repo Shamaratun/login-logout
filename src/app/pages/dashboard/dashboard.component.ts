@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../core/auth.service';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from "../common/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, SidebarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

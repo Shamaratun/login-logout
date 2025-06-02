@@ -1,0 +1,31 @@
+<!-- <label>Discount %:</label>
+<input formControlName="discount" (input)="calculateTotals()"><br>
+
+<label>Discount Amount:</label>
+
+<input formControlName="discountAmount" readonly><br> -->
+
+<form (ngSubmit)="onSubmit()">
+  <label>Name:</label>
+  <input formControlName="name"><br>
+
+  <label>Description:</label>
+  <input formControlName="description"><br>
+
+  <label>Discount %:</label>
+  <input formControlName="discountPercentage" type="number"><br>
+
+  <label>Discount Amount:</label>
+  <input formControlName="discountAmount" readonly><br>
+
+  <label>Start Date:</label>
+  <input formControlName="startDate" type="date"><br>
+
+  <label>End Date:</label>
+  <input formControlName="endDate" type="date"><br>
+
+  <label>Criteria:</label>
+  <input formControlName="criteria"><br>
+
+  <button type="submit">Save Discount</button>
+</form>

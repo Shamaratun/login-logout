@@ -1,0 +1,50 @@
+<div class="warehouse-container">
+  <h2 class="section-title">Add New Warehouse</h2>
+  <form (ngSubmit)="addWarehouse()" #warehouseForm="ngForm" class="warehouse-form">
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input
+        type="text"
+        id="location"
+        name="location"
+        [(ngModel)]="newWarehouse.location"
+        required
+        class="form-control"
+        placeholder="Enter warehouse location"
+      />
+    </div>
+    <div class="form-group">
+      <label for="stockLevel">Stock Level:</label>
+      <input
+        type="number"
+        id="stockLevel"
+        name="stockLevel"
+        [(ngModel)]="newWarehouse.stockLevel"
+        required
+        class="form-control"
+        placeholder="Enter stock level"
+      />
+    </div>
+    <button type="submit" [disabled]="!warehouseForm.form.valid" class="btn btn-primary">
+      Add Warehouse
+    </button>
+  </form>
+
+  <h2 class="section-title">Warehouse List</h2>
+  <table class="table table-striped table-bordered warehouse-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Location</th>
+        <th>Stock Level</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let warehouse of warehouses; trackBy: trackById">
+        <td>{{ warehouse.warehouseId }}</td>
+        <td>{{ warehouse.location }}</td>
+        <td>{{ warehouse.stockLevel }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

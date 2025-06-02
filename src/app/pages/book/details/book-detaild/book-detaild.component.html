@@ -1,0 +1,124 @@
+<div class="container my-4">
+    <div class="row">
+      <!-- Left Image + Actions -->
+      <div class="col-md-4 text-center">
+        <button class="btn btn-light mb-3 p-0 position-relative" type="button">
+          <img [src]="book.images.cover" alt="{{book.title}}" class="img-fluid" loading="lazy" />
+          <img
+            [src]="book.images.readMeIcon"
+            alt="Read Me Icon"
+            class="position-absolute bottom-0 start-50 translate-middle-x"
+            loading="lazy"
+          />
+          <img
+            [src]="book.images.originalBadge"
+            alt="Original Badge"
+            class="position-absolute"
+            style="bottom: 10px; left: 25%;"
+            loading="lazy"
+          />
+        </button>
+  
+        <button class="btn btn-outline-secondary w-100" type="button">
+          Want to Read <i class="bi bi-chevron-down"></i>
+        </button>
+      </div>
+  
+      <!-- Right Info -->
+      <div class="col-md-8">
+        <h1 class="h3">
+          {{ book.title }} <small class="text-muted">({{ book.format }})</small>
+        </h1>
+        <h5 class="text-secondary mb-3">{{ book.description }}</h5>
+  
+        <p>
+          by
+          <a [href]="book.author.link">{{ book.author.name }}</a>
+        </p>
+  
+        <p>
+          Category:
+          <a [href]="book.category.link">{{ book.category.name }}</a>
+        </p>
+  
+        <!-- Ratings -->
+        <div class="d-flex align-items-center mb-2">
+          <div class="me-2" title="Rating: {{ book.ratings }}/5">
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-half text-warning"></i>
+          </div>
+          <small>{{ book.ratingCount }} Ratings | <a href="#reviews">{{ book.reviewCount }} Reviews</a></small>
+        </div>
+  
+        <!-- Users want -->
+        <div class="d-flex align-items-center mb-3">
+          <img [src]="book.images.usersIcon" alt="Users" width="22" height="22" loading="lazy" />
+          <small class="ms-2" title="{{ book.usersWantCount }} verified customers">
+            {{ book.usersWantCount }} User want this item!
+          </small>
+        </div>
+  
+        <!-- Summary -->
+        <div class="mb-3">
+          <strong>‘দূরবীন’ </strong><br />
+    
+          <button class="btn btn-link p-0" type="button">Read More</button>
+        </div>
+  
+        <!-- Price and discount -->
+        <div class="mb-3">
+          <del class="text-muted fs-6 me-2">TK. {{ book.price.original }}</del>
+          <span class="fs-5 fw-bold text-danger">TK. {{ book.price.discounted }}</span>
+          <span class="text-success ms-2">You Save TK. {{ book.price.savings }} ({{ book.price.savingsPercent }}%)</span>
+        </div>
+  
+        <!-- Stock info -->
+        <div class="mb-3">
+          <span class="badge bg-success me-2">In Stock ({{ book.stock }} copies available)</span>
+          <small class="text-muted">* স্টক আউট হওয়ার আগেই অর্ডার করুন</small>
+        </div>
+  
+        <!-- Offer -->
+        <div class="alert alert-info p-2 d-flex align-items-center mb-4">
+          <img
+            [src]="book.images.offerTag"
+            alt="Offer Tag"
+            width="16"
+            height="16"
+            loading="lazy"
+            class="me-2"
+          />
+          {{ book.offer }}
+        </div>
+  
+        <!-- Buttons -->
+        <div class="d-flex gap-2 mb-4">
+          <button class="btn btn-outline-primary flex-grow-1" type="button">একটু পড়ে দেখুন</button>
+          <button class="btn btn-primary d-flex align-items-center gap-1 flex-grow-2" type="button">
+            <img
+              [src]="book.images.cartIcon"
+              alt="Cart Icon"
+              width="21"
+              height="20"
+              loading="lazy"
+            />
+            Add to Cart
+          </button>
+        </div>
+  
+        <!-- Share & Wishlist -->
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-secondary d-flex align-items-center gap-2" type="button">
+            <i class="bi bi-heart"></i> পছন্দের তালিকায় রাখুন
+          </button>
+          <button class="btn btn-outline-secondary d-flex align-items-center gap-2" type="button">
+            <i class="bi bi-share"></i> বন্ধুদের সাথে শেয়ার করুন
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -30,6 +30,7 @@ import { ContactUsComponent } from './about/contact-us/contact-us.component';
 import { CatagoryComponent } from './pages/book/catagory/catagory.component';
 import { RegFormComponent } from './pages/adminP/reg-form/reg-form.component';
 import { AuthorListComponent } from './pages/adminP/author-list/author-list.component';
+import { BookDetaildComponent } from './pages/book/details/book-detaild/book-detaild.component';
 
 export const routes: Routes = [ {
     path: '',component: LoginViewComponent },
@@ -68,7 +69,8 @@ export const routes: Routes = [ {
         { path: 'admin-view', component: AdminViewComponent },
         {path:'catagory', component: CatagoryComponent},
         {path:'reg-form', component: RegFormComponent},
-           {path:'author-list', component: AuthorListComponent},        
+           {path:'author-list', component: AuthorListComponent}, 
+           {path:'book-detaild', component: BookDetaildComponent},
         // { path: '', redirectTo: 'home' },
         { path: '**', redirectTo: 'home' },
    
